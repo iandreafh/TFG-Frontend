@@ -1,0 +1,72 @@
+<section>
+    <a class="linkHome" href="#">
+      <img src="../../assets/img/Panda_grande_azul.png" alt="Logo">
+    </a>
+    <div class="register-container">
+      <a href="/login">
+        <mat-icon class="back">arrow_back</mat-icon>
+      </a>
+      <h2>Registrar nuevo usuario</h2>
+      <form (ngSubmit)="register()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre">Nombre *</label>
+            <input type="text" [(ngModel)]="userData['nombre']" name="nombre" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" [(ngModel)]="userData['email']" name="email" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Contraseña *</label>
+            <div class="input-group">
+              <input [type]="hide ? 'password' : 'text'" 
+                      [(ngModel)]="userData['password']" 
+                      name="password" 
+                      class="form-input" 
+                      required>
+              <button mat-icon-button matSuffix 
+                      type="button"
+                      (click)="hide = !hide" 
+                      [attr.aria-label]="'Hide password'" 
+                      [attr.aria-pressed]="hide"
+                      class="password-toggle">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="passwordCheck">Repite la contraseña *</label>
+            <input type="password" [(ngModel)]="userData['passwordCheck']" name="passwordCheck" class="form-input" required>
+          </div>
+        </div>
+        <div class="form-row full-width">
+          <label for="foto">Foto de perfil</label>
+          <div class="input-group">
+            <input type="file" #fileInput (change)="onFileSelect($event)" class="form-input file-input">
+            <button mat-icon-button matSuffix 
+                    type="button" 
+                    class="file-upload-button"
+                    (click)="triggerFileInput()">
+                <mat-icon>upload</mat-icon>
+            </button>
+            <span class="file-upload-text">{{ fileName }}</span>
+          </div>
+        </div>
+        <div class="form-row single-group">
+          <mat-slide-toggle [(ngModel)]="alertas" name="alertas">
+            <span class="sliderText">Deseo recibir notificaciones de la aplicación por correo electrónico.</span>
+          </mat-slide-toggle>
+        </div>
+        <button type="submit" class="register-button">Registrar</button>
+      </form>
+      <a routerLink="/login">¿Ya tienes cuenta? Inicia sesión aquí</a>
+      
+      <div class="error-message" [ngClass]="{'has-error': errorMessage}">
+        <p *ngIf="errorMessage">{{ errorMessage }}</p>
+      </div>
+    </div>
+  </section>
+  

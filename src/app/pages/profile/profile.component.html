@@ -1,0 +1,153 @@
+<!-- 
+<div class="page-container">
+
+    <div class="page-content">
+        <div class="page-image">
+            <img src="../../../assets/img/profile/woman2-profile.jpg" alt="Perfil" />
+        </div>
+        
+        <div class="page-info">
+            <div class="form-item" *ngFor="let field of profileFields">
+                <div class="label">
+                    {{ field.label }}
+                </div>
+                <div class="value" [ngClass]="{'editable-input': isEditable}">
+                    <input [type]="field.type" [value]="field.value" [readonly]="!isEditable" />
+                </div>
+            </div>
+            <div class="form-item sliderAlertas">
+                <div class="label"><mat-slide-toggle [disabled]="!isEditable">
+                    <span class="sliderText">Deseo recibir notificaciones de la aplicación por correo electrónico.</span>
+                </mat-slide-toggle></div>
+            </div>
+            <div *ngIf="isEditable" class="form-item">
+
+                <label for="foto">Foto de perfil</label>
+                <div class="input-group">
+                    <input type="file" #fileInput (change)="onFileSelect($event)" class="form-input file-input">
+                    <button mat-icon-button matSuffix 
+                            type="button" 
+                            class="file-upload-button"
+                            (click)="triggerFileInput()">
+                        <mat-icon>upload</mat-icon>
+                    </button>
+                    <span class="file-upload-text">{{ fileName }}</span>
+                </div>
+                
+                <div class="value" [ngClass]="{'editable-input': isEditable}">
+                    <button class="file-upload-button">
+                        <input type="file"
+                        #fileInput
+                        (change)="onFileSelect2(fileInput)"
+                        />
+                        <i class="fa-solid fa-upload"></i>
+                    </button>
+                    <span *ngIf="!fileInfo" class="sliderText">Editar imagen del perfil</span>
+                    <span *ngIf="fileInfo" class="file-info">{{ fileInfo }}</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    
+    <div class="error-message" [ngClass]="{'has-error': errorMessage}">
+        <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+</div>
+
+ -->
+
+
+<!-- No carga la página hasta que se reciban los datos del usuario -->
+<div class="form-container" *ngIf="userData">
+    <h2>Mi perfil</h2>
+    <div class="page-image">
+        <!-- <img src="https://www.shareicon.net/data/256x256/2016/09/15/829452_user_512x512.png" alt="Perfil" /> -->
+        <!-- <img src="../../../assets/img/profile/man-profile.png" alt="Perfil" /> -->
+        <!-- <img src="../../../assets/img/profile/woman2-profile.jpg" alt="Perfil" /> -->
+        <img src="{{userData.Foto}}" alt="Perfil" />
+    </div>
+    <form (ngSubmit)="saveProfile()">
+        <div class="form-row" [ngClass]="{'editable-input': isEditable}">
+            <div class="form-group">
+            <label for="nombre">Nombre *</label>
+            <input type="text" [(ngModel)]="userData.Nombre" id="nombre" name="nombre" class="form-input" [readonly]="!isEditable" required>
+            </div>
+            <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" [(ngModel)]="userData.Email" id="email" name="email" class="form-input" [readonly]="!isEditable" autocomplete="off" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label for="estado">Estado de la cuenta</label>
+                <input type="text" *ngIf="!userData.Check_activo" value="Inactiva" id="estado" name="estado" class="form-input" [readonly]="true" required>
+                <input type="text" *ngIf="userData.Check_activo" value="Activa" id="estado" name="estado" class="form-input" [readonly]="true" required>
+            </div>
+            <div class="form-group" *ngIf="isEditable" [ngClass]="{'editable-input': isEditable}">
+                <label for="actualPassword">Contraseña actual</label>
+                <input type="password" [(ngModel)]="actualPassword" id="actualPassword" name="actualPassword" class="form-input">
+            </div>
+        </div>
+        <div class="form-row" *ngIf="isEditable" [ngClass]="{'editable-input': isEditable}">
+            <div class="form-group">
+                <label for="newPassword">Contraseña nueva</label>
+                <input type="password" [(ngModel)]="newPassword" id="newPassword" name="newPassword" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="newPasswordCheck">Repita la contraseña nueva</label>
+                <input type="password" [(ngModel)]="newPasswordCheck" id="newPasswordCheck" name="newPasswordCheck" class="form-input" required>
+            </div>
+        </div>
+        <p class="passwordText" *ngIf="isEditable">Rellene los campos de contraseña actual y nueva sólo si desea actualizarla.</p>
+        <p class="passwordText" *ngIf="isEditable">La contraseña debe tener entre 6 y 12 caracteres, incluyendo letras y números.</p>
+        <div class="form-row full-width" *ngIf="isEditable" [ngClass]="{'editable-input': isEditable}">
+            <label for="foto">Foto de perfil</label>
+            <div class="input-group">
+                <input type="file" #fileInput (change)="onFileSelect($event)" class="form-input file-input">
+                <button mat-icon-button matSuffix 
+                        type="button" 
+                        class="file-upload-button"
+                        (click)="triggerFileInput()">
+                    <mat-icon>upload</mat-icon>
+                </button>
+                <span class="file-upload-text">{{ fileName }}</span>
+            </div>
+        </div>
+        
+        <div class="form-row single-group" [ngClass]="{'editable-input': isEditable}">
+            <mat-slide-toggle [(ngModel)]="userData.Alertas" name="alertas" [disabled]="!isEditable">
+            <span class="sliderText">Deseo recibir notificaciones de la aplicación por correo electrónico.</span>
+            </mat-slide-toggle>
+        </div>
+        
+        <!-- <div class="form-row">
+            <button type="submit" class="submit-button">Actualizar contraseña</button>
+        </div> -->
+
+    </form>
+    
+    <div class="error-message" [ngClass]="{'has-error': errorMessage}">
+      <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+</div>
+
+
+
+
+<button *ngIf="!isEditable" mat-fab class="floating-button" matTooltip="Eliminar perfil" (click)="deleteProfile()">
+    <i class="fa-regular fa-trash-can"></i>
+</button>
+
+<button *ngIf="!isEditable" mat-fab class="floating-button-2" matTooltip="Editar perfil" (click)="editProfile()">
+    <i class="fa-solid fa-pen-to-square card-icon"></i>
+</button>
+
+<button *ngIf="isEditable" mat-fab class="floating-button" matTooltip="Cancelar" (click)="cancelEdit()">
+    <i class="fa-solid fa-xmark"></i>
+</button>
+
+<button *ngIf="isEditable" mat-fab class="floating-button-2" matTooltip="Guardar perfil" (click)="saveProfile()">
+    <i class="fa-solid fa-floppy-disk"></i>
+</button>

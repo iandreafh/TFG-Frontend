@@ -1,0 +1,47 @@
+<header>
+  <div>
+    <h1>Hola, {{userName}}</h1>
+    <h4 class="today">Hoy es {{today}}</h4>
+  </div>
+  <div class="profile">
+    <a routerLink="/profile">
+      <img src="{{userData.Foto}}" alt="Perfil" />
+    </a>
+  </div>
+</header>
+
+<div class="form-container" *ngIf="userData">
+
+  <h2>Mis proyectos</h2>
+
+  <div class="card-container">
+    <div class="project-card" *ngFor="let project of projects" [ngStyle]="{'border-left': '10px solid ' + project.color}">
+      <h3>{{ project.title }}</h3>
+      <div class="card-members">
+        <i class="fa-solid fa-users-line card-icon"></i>
+        <p>{{ project.members }}</p>
+      </div>
+      <!-- <div class="card-info">
+        <p>
+          <i class="fa-solid fa-info-circle card-icon"></i>
+          {{ project.description }}
+        </p>
+      </div> -->
+      <!-- <div class="card-update">
+        <i class="fa-solid fa-pen-to-square card-icon"></i>
+        <p>{{ project.lastUpdate }}</p>
+      </div> -->
+    </div>
+
+  </div>
+
+  <button mat-fab class="floating-button" (click)="add()">
+    <p>+</p>
+  </button>
+
+</div>
+
+
+<button mat-fab class="floating-button" matTooltip="Crear proyecto">  <!--(click)="createProject()"-->
+  <i class="fa-solid fa-plus"></i>
+</button>

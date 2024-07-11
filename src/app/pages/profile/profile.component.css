@@ -1,0 +1,387 @@
+@media (min-width: 768px) {
+    /* Para pantallas medianas y grandes, display modo horizontal */
+    .form-container {
+        max-width: 95%;
+        padding: 40px;
+        margin: auto;
+        margin: 35px auto;
+        border-radius: 15px;
+    }
+
+    .page-content {
+        flex-direction: row;
+    }
+
+    .page-info {
+        flex-grow: 1;
+        padding: 0px 30px;
+    }
+    
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 543px;
+    }
+  
+    .form-group {
+      width: 49%;
+      padding: 10px;
+    }
+  
+    .single-group {
+      justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Para pantallas pequeñas, display modo vertical */
+    .form-container {
+        max-width: 90%;
+        padding: 20px;
+        margin: auto;
+        margin-top: 25px;
+        margin-bottom: 80px;
+    }
+
+    .page-content {
+        flex-direction: column;
+    }
+
+    .page-info {
+        flex-grow: 1;
+        padding: 0px;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+    
+    .form-group {
+        width: 100%;
+    }
+    
+    .single-group {
+        justify-content: center;
+    }
+}
+
+h2 {
+    font-family: "Alata", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 25px;
+    margin: 0px;
+}
+
+.floating-button, .floating-button-2 {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background-color: #ed7d2b; /* El color que muestra tu imagen */
+    color: white; /* Asumiendo que quieres el signo + en blanco */
+    font-family: "Alata", sans-serif;
+    font-size: 20px;
+}
+
+.floating-button-2 {
+    right: 115px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+.page-content {
+    display: flex;
+    text-align: center;
+    width: 100%;
+}
+
+.page-image img {
+    border-radius: 50%;
+    width: 75%;
+    max-width: 200px;
+    margin: 15px 25px;
+}
+
+
+/* CÓDIGO DE FORM REGISTRO PARA INSERTAR AQUÍ */
+
+.single-group {
+    margin: 5px 0;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.file-upload-text {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.form-input {
+    width: 100%;
+    margin: 6px 0px;
+    padding: 12px;
+    border: none;
+    border-bottom: 2px solid #c8c8c8;
+    outline: none;
+    transition: border-color 0.2s;
+    color: grey;
+}
+
+.file-input {
+    display: none; /* Ocultar el input de archivo */
+}
+
+.input-group .form-input {
+    padding-right: 120px;
+}
+
+.file-input {
+    padding-right: 50px; /* Ajusta el padding según sea necesario */
+}
+
+.full-width label {
+    width: 85%;
+    text-align: right;
+    padding-right: 25px;
+    margin: 20px;
+}
+
+label {
+    font-weight: 600;
+    color: #8f9bb3;
+}
+
+.form-input:focus {
+    border-bottom: 2px solid #4b62ae;
+}
+
+.form-button {
+    width: 100%;
+    padding: 15px 5px;
+    border: none;
+    background-color: #ed7d2b;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: opacity 0.2s;
+    margin: 10px 0px;
+}
+
+.form-button:hover {
+    opacity: 0.9;
+}
+
+.form-button {
+    margin: 1.5rem 0;
+    font-family: "Alata", sans-serif;
+}
+
+a {
+    color: #7d85c7;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+a:hover {
+    color: #4b62ae;
+}
+
+.error-message {
+    color: darkred;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin-top: 10px;
+    padding: 15px 15px 0px;
+    min-height: 40px;
+}
+
+.has-error {
+    background-color: #fce4e4;
+    border: 1px solid #fcc2c3;
+}
+
+.passwordText {
+    color: grey;
+    font-size: 11px;
+    padding-left: 15px;
+    margin-top: -10px;
+}
+
+.editable-input input {
+    background-color: #f7f7f9;
+    color: black;
+}
+
+.file-upload-text {
+    padding: 12px;
+    margin-left: 8px !important;
+    background-color: #f7f7f9;
+    border-bottom: 2px solid #c8c8c8;
+    width: 75%;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 12px 5px;
+    border: none;
+    background-color: #ed7d2b;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    margin: 20px 0px;
+}
+
+.submit-button:hover {
+    opacity: 1;
+}
+
+
+
+
+
+
+
+
+
+
+/* CÓDIGO ANTERIOR DEL PRIMER PROFILE */
+
+
+/* 
+
+header {
+    margin: 2% 10%;
+    border-bottom: 3px solid #cacdea;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 10%;
+}
+
+header h1 {
+    font-family: "Alata", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 26px;
+    margin: 0px;
+}
+
+.form-item {
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.label, .value input {
+    padding: 10px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.label {
+    flex: 2;
+    font-weight: 600;
+    color: #828282;
+}
+
+.value {
+    flex: 3;
+    transition: all 0.3s ease-in-out;
+    border: #cacdea;
+    border-radius: 5px;
+    border: 1px solid #e4e9f2;
+    background-color: #f7f9fc;
+}
+
+.sliderAlertas {
+}
+
+.editable-input {
+    background-color: #f7f7f9;
+    border-bottom: 2px solid #cacdea;
+}
+
+.editable-input:focus-within {
+    border-bottom: 4px solid #cacdea;
+}
+
+.value input {
+    width: 95%;
+    margin-left: 1%;
+    outline: none;
+    background-color: initial;
+    border: none;
+}
+
+.sliderText {
+    padding: 0px 10px;
+}
+
+.file-upload-button {
+    background-color: #cacdea;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 5px;
+    overflow: hidden;
+    position: relative;
+
+  input[type="file"] {
+        font-size: 100px;
+        left: 0;
+        opacity: 0;
+        position: absolute;
+        top: 0;
+    }
+}
+
+.fa-upload {
+    font-size: 18px;
+}
+
+.file-info {
+  color: #999;
+  font-family: Lato;
+  margin-left: 0.5rem;
+}
+
+.error-message {
+    color: darkred;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin-top: 10px;
+    padding: 15px 15px 0px;
+    min-height: 35px;
+}
+
+.has-error {
+    background-color: #fce4e4;
+    border: 1px solid #fcc2c3;
+}
+ */
+

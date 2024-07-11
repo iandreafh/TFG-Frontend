@@ -1,33 +1,18 @@
-<style>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Panda Planning</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/img/Panda_grande_azul.png">
+</head>
+<body>
+  <!-- Mostrar app-menu si está autenticado -->
+  <app-menu *ngIf="isAuthenticated"></app-menu>
   
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    background-color: #8c004b;
-    color: white;
-    font-weight: 600;
-  }
+  <!-- NO BORRAR -->
+  <router-outlet *ngIf="!isAuthenticated"></router-outlet>
 
-  .toolbar img {
-    margin: 0 16px;
-  }
-
-</style>
-
-<h2>Panda Planning</h2>
-
-<!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <img
-    width="60"
-    alt="Angular Logo"
-    src="../../assets/img/IconoPrincipalAncho.png"
-  />
-  <a aria-label="Welcome" rel="noopener" href="/welcomeMi" title="welcome"><span>Welcome</span></a>
-</div>
-<router-outlet></router-outlet>
+</body>
+</html>

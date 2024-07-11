@@ -1,31 +1,55 @@
-# TFG
-Repositorio creado para el desarrollo de mi Trabajo de Fin de Grado en el Grado en Ingeniería Informática en Sistemas de Información en la Escuela Politécnica Superior de la Universidad Pablo de Olavide.
+# Panda Planning - TFG Frontend
 
-# MiProyecto
+Este repositorio contiene el código frontend del proyecto TFG para la aplicación Panda Planning, desarrollada para el proyecto final del Grado de Ingeniería Informática en Sistemas de Información de la EPS UPO.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
+## Descripción
 
-## Development server
+Panda Planning es una aplicación diseñada para ayudar en la gestión y planificación de tareas y proyectos. Este frontend está desarrollado utilizando Angular y se comunica con una API RESTful proporcionada por el backend desarrollado en Flask.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Características
 
-## Code scaffolding
+- **Interfaz de usuario amigable**: Diseñada para facilitar la gestión de tareas y proyectos.
+- **Autenticación**: Manejo seguro de inicio y cierre de sesión, y reseteo de contraseñas.
+- **Gestión de Usuarios**: Registro, actualización y eliminación de usuarios.
+- **Gestión de Proyectos**: Creación, actualización y eliminación de proyectos.
+- **Gestión de Tareas**: Creación, actualización y eliminación de tareas asociadas a proyectos.
+- **Gestión de Comentarios**: Creación, actualización y eliminación de comentarios en proyectos.
+- **Gestión de Mensajes**: Envío y recepción de mensajes entre usuarios.
+- **Gestión de Reuniones**: Creación, actualización y eliminación de reuniones.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Tecnologías
 
-## Build
+- **Angular**: Framework para el desarrollo de aplicaciones web.
+- **TypeScript**: Lenguaje principal de desarrollo.
+- **HTML y CSS**: Para la estructura y estilo de la aplicación.
+- **Bootstrap**: Framework de CSS para el diseño responsivo.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Instalación y Configuración
 
-## Running unit tests
+### Requisitos Previos
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Node.js
+- Angular CLI
 
-## Running end-to-end tests
+### Instalación
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. Clona el repositorio:
+    ```bash
+    git clone https://github.com/iandreafh/TFG-Frontend.git
+    cd TFG-Frontend
+    ```
 
-## Further help
+2. Instala las dependencias:
+    ```bash
+    npm install
+    ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
->>>>>>> master
+### Uso
+
+#### Servidor de Desarrollo
+
+Ejecuta `ng serve` para iniciar el servidor de desarrollo. Navega a `http://localhost:4200/`. La aplicación se recargará automáticamente si realizas cambios en los archivos fuente.
+
+### Documentación
+
+La documentación completa del proyecto backend y sus endpoints se encuentra en el repositorio del backend: [Panda Planning - TFG Backend](https://github.com/iandreafh/TFG-Backend)

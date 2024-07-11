@@ -1,1 +1,151 @@
-<p>welcome works!</p>
+<app-navbar></app-navbar>
+
+<ng-container class="landing-page">
+  
+  <section class="first-section" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-xl-6 col-lg-6 col-md-10 centered-container">
+          <div class="content">
+            <h2>Bienvenido a Panda Planning, la solución definitiva para la gestión de proyectos y tareas</h2>
+            <p>Descubre nuestra plataforma web que te ayudará a simplificar tu flujo de trabajo, mejorar la comunicación y aumentar
+               la productividad de tu equipo. Únete a nosotros y lleva tu gestión de proyectos al siguiente nivel.</p>
+            <div class="text-center">
+              <a class="btn-hover" href="/register">Crea tu cuenta</a>
+            </div>
+          </div>
+        </div>      
+        <div class="col-xxl-6 col-xl-6 col-lg-6">
+          <div class="first-image">
+            <img alt="Imagen de animación de un equipo de trabajo" src="..\..\assets\img\welcome\teamwork.png">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="feature-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5 col-md-10 centered-container">
+          <div class="section-title">
+            <h2>Descubre las distintas funciones de Panda Planning</h2>
+            <p>Con nuestra plataforma puedes gestionar proyectos, asignar tareas, colaborar con tu equipo,
+              y mantenerte al tanto de todo desde un solo lugar.
+            </p>
+          </div>
+          <div class="second-image">
+            <img alt="Imagen de animación de un equipo de trabajo organizando tareas" src="..\..\assets\img\welcome\tasks.png">
+          </div>
+        </div>
+        <div class="col-lg-7 features">
+          <div class="row">
+            <div class="col-lg-6 col-md-6">
+              <div class="single-feature">
+                <div class="feature-icon">
+                  <mat-icon>view_list</mat-icon>
+                </div>
+                <div class="feature-content">
+                  <h4>Asignación y seguimiento de tareas</h4>
+                  <p>Gestionar tareas nunca ha sido tan fácil. Puedes asignarlas a un miembro del equipo y hacer seguimiento del progreso en el tablero de estados.
+                     Nunca más te perderás una fecha límite.</p>
+                </div>
+              </div>
+            </div>
+            <!--ng-container-->
+            <div class="col-lg-6 col-md-6">
+              <div class="single-feature">
+                <div class="feature-icon">
+                  <mat-icon> add_comment</mat-icon>
+                </div>
+                <div class="feature-content">
+                  <h4>Comentar y compartir archivos</h4>
+                  <p>Con nuestro sistema de comentarios por proyecto quedarán reflejadas todas las ideas
+                     y sugerencias del equipo. Fomenta una cultura de comunicación abierta y constructiva.
+                  </p>
+                </div>
+              </div>
+            </div><!--ng-container-->
+            <div class="col-lg-6 col-md-6">
+              <div class="single-feature">
+                <div class="feature-icon">
+                  <mat-icon>notifications</mat-icon>
+                </div>
+                <div class="feature-content">
+                  <h4>Alertas y notificaciones</h4>
+                  <p>Nunca te pierdas una actualización importante. Configura tus alertas en tu perfil y mantente al tanto de todo sin esfuerzo.</p>
+                </div>
+              </div>
+            </div>
+            <!--ng-container-->
+            <div class="col-lg-6 col-md-6">
+              <div class="single-feature">
+                <div class="feature-icon">
+                  <mat-icon>event_available</mat-icon>
+                </div>
+                <div class="feature-content">
+                  <h4>Programar reuniones</h4>
+                  <p>Convoca reuniones con los miembros de tu equipo, cada uno podrá aceptar o rechazar para buscar la mejor fecha para todos.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+  <section class="chat-section" id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 order-last order-lg-first">
+          <div class="third-image">
+            <img alt="Imagen de animación de un chat de mensajes" src="..\..\assets\img\welcome\chats.png">
+          </div>
+        </div>
+        <div class="col-lg-6 centered-container">
+          <div class="third-content-wrapper">
+            <div class="section-title">
+              <div class="text-and-image">
+                <h2>Colaboración en Tiempo Real</h2>
+                <img alt="Imagen de animación de envío de un mensaje con un avión de papel" src="..\..\assets\img\welcome\sending-msg.gif">
+              </div>
+              <p>Facilita la colaboración con tu equipo gracias a nuestras herramientas de comunicación en tiempo real.
+                 Envía mensajes a cualquier usuario de la aplicación y mantén a todos informados con nuestras funciones de chat y reuniones.
+                 La colaboración efectiva está a un solo clic de distancia.
+              </p>
+              <div class="text-center">
+                <img class="chat-gif" alt="Imagen de animación de envío de un mensaje con un avión de papel" src="..\..\assets\img\welcome\chatting.gif">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="waves-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-10">
+          <div class="section-title text-center">
+            <img class="logo" src="../../assets/img/Panda_grande_azul.png" alt="Logo">
+            <h2>Únete a Panda Planning</h2>
+            <p>No esperes más, regístrate hoy y comprueba que gestionar tus tareas pendientes puede ser mucho más sencillo,
+               eficiente y efectivo.<br>
+               ¡Únete a nuestra comunidad y lleva tu organización al siguiente nivel!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <app-footer></app-footer>
+
+</ng-container>
+  
+<router-outlet></router-outlet>
+  
