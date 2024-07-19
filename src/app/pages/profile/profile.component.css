@@ -1,43 +1,7 @@
-@media (min-width: 768px) {
-    /* Para pantallas medianas y grandes, display modo horizontal */
-    .form-container {
-        max-width: 95%;
-        padding: 40px;
-        margin: auto;
-        margin: 35px auto;
-        border-radius: 15px;
-    }
-
-    .page-content {
-        flex-direction: row;
-    }
-
-    .page-info {
-        flex-grow: 1;
-        padding: 0px 30px;
-    }
-    
-    .form-row {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 543px;
-    }
-  
-    .form-group {
-      width: 49%;
-      padding: 10px;
-    }
-  
-    .single-group {
-      justify-content: center;
-    }
-}
-
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     /* Para pantallas pequeñas, display modo vertical */
     .form-container {
-        max-width: 90%;
+        max-width: 95%;
         padding: 20px;
         margin: auto;
         margin-top: 25px;
@@ -64,6 +28,52 @@
     .single-group {
         justify-content: center;
     }
+    
+    .avatar-icon {
+        width: 35px;
+        height: 35px;
+      }
+}
+
+@media (min-width: 768px) {
+    /* Para pantallas medianas y grandes, display modo horizontal */
+    .form-container {
+        max-width: 95%;
+        padding: 40px;
+        margin: auto;
+        margin: 32px auto;
+        border-radius: 15px;
+    }
+
+    .page-content {
+        flex-direction: row;
+    }
+
+    .page-info {
+        flex-grow: 1;
+        padding: 0px 30px;
+    }
+    
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      max-width: 545px;
+    }
+  
+    .form-group {
+      width: 49%;
+      padding: 10px;
+    }
+  
+    .single-group {
+      justify-content: center;
+    }
+
+    .avatar-icon {
+      width: 55px;
+      height: 55px;
+    }
 }
 
 h2 {
@@ -74,7 +84,7 @@ h2 {
     margin: 0px;
 }
 
-.floating-button, .floating-button-2 {
+.floating-button, .floating-button-2, .floating-button-3 {
     position: fixed;
     bottom: 40px;
     right: 40px;
@@ -85,7 +95,11 @@ h2 {
 }
 
 .floating-button-2 {
-    right: 115px;
+    right: 110px;
+}
+
+.floating-button-3 {
+    right: 180px;
 }
 
 .form-container {
@@ -124,7 +138,6 @@ h2 {
 }
 
 .file-upload-text {
-    margin-left: 10px;
     font-size: 14px;
     color: #555;
 }
@@ -132,7 +145,7 @@ h2 {
 .form-input {
     width: 100%;
     margin: 6px 0px;
-    padding: 12px;
+    padding: 10px;
     border: none;
     border-bottom: 2px solid #c8c8c8;
     outline: none;
@@ -153,10 +166,15 @@ h2 {
 }
 
 .full-width label {
-    width: 85%;
-    text-align: right;
-    padding-right: 25px;
-    margin: 20px;
+    width: 100%;
+    text-align: center;
+    margin: 10px 0px;
+    font-size: 13px;
+}
+
+.password-row input {
+    width: 50%;
+    justify-content: center;
 }
 
 label {
@@ -221,7 +239,8 @@ a:hover {
     color: grey;
     font-size: 11px;
     padding-left: 15px;
-    margin-top: -10px;
+    margin-top: -3px;
+    margin-bottom: 3px;
 }
 
 .editable-input input {
@@ -255,6 +274,29 @@ a:hover {
     opacity: 1;
 }
 
+.avatar-options {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    width: 100%;
+    justify-content: center;
+}
+
+.avatar-icon {
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.avatar-icon.selected {
+    border-color: #4b62ae;
+}
+
+.file-div {
+    width: 100%;
+    justify-content: center;
+}
 
 
 

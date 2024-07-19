@@ -21,7 +21,18 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  validateEmail(email: string): boolean {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
   login() {
+    // Validar correo electrónico
+    if (!this.validateEmail(this.email)) {
+      this.errorMessage = "Debe proporcionar un correo electrónico válido.";
+      return; // Terminar ejecución
+    }
+
     this.authService.login(this.email, this.password).subscribe({
       next: (response) => {
         if (response.access_token) {
@@ -37,26 +48,12 @@ export class LoginComponent implements OnInit {
         }
       },
       error: (error: HttpErrorResponse) => {
-        // Verifica el status del error y maneja el mensaje
-        console.log(error);
-
+        // Muestra el mensaje de error recibido por la API, y uno por defecto si no hay mensaje de error
         if (error.error && (error.error.error || error.error.message)) {
           this.errorMessage = error.error.message ? error.error.message : error.error.error;
         } else {
           this.errorMessage = 'Ocurrió un problema al intentar iniciar sesión.';
         }
-
-        // if (error.status === 403) {
-        //   this.errorMessage = 'Tu cuenta está inactiva. Por favor, contacta con soporte para más información.';
-        // } else if (error.status === 401) {
-        //   this.errorMessage = 'Credenciales incorrectas. Por favor, verifica tu email y contraseña.';
-        // } else if (error.error && error.error.message) {
-        //   // Muestra el mensaje de error devuelto por la API si está disponible
-        //   this.errorMessage = error.error.message;
-        // } else {
-        //   // Mensaje de error genérico en caso de que no haya un mensaje específico
-        //   this.errorMessage = 'Ocurrió un problema al intentar iniciar sesión.';
-        // }
       }
     });
   }

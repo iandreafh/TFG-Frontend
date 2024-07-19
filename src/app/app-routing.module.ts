@@ -8,6 +8,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 export function authenticationGuard(): CanActivateFn {
   return () => {
@@ -47,6 +48,7 @@ const routes: Routes = [
   // ... otras rutas,
   { path: '', component: WelcomeComponent, canActivate: [loggedInGuard()] },
   { path: 'login', component: LoginComponent, canActivate: [loggedInGuard()] },
+  { path: 'reset-password', component: ResetPasswordComponent, canActivate: [loggedInGuard()] },
   { path: 'register', component: RegisterComponent, canActivate: [loggedInGuard()] },
   { path: 'home', component: HomeComponent, canActivate: [authenticationGuard()] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [authenticationGuard()] },
@@ -54,7 +56,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, {
+    // onSameUrlNavigation: 'ignore',  // default behavior
+    onSameUrlNavigation: 'reload'
+  })],
+  exports: [RouterModule],
 })
 export class AppRoutingModule { }

@@ -58,6 +58,15 @@ export class AuthService {
     ).subscribe();
   }
 
+  resetPassword(email: string): Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(`${this.apiUrl}/auth/reset_password`, { Email: email }).pipe(
+      map((response) => {
+        return response;
+      }),
+      catchError((error: HttpErrorResponse) => throwError(() => error))
+    );
+  }
+
   fetchUserProfile(): Observable<any> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
     return this.http.get<any>(`${this.apiUrl}/usuarios/profile`, { headers }).pipe(

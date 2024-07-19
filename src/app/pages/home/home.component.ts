@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
     this.authService.getCurrentUser().subscribe(user => {
       if (user) {
         this.userData = user;
-        this.currentUserId = user.Id; // Assuming ID is available in the user object
+        this.currentUserId = user.Id;
         this.userName = this.userData.Nombre.split(" ", 1);
       }
       this.setRandomBackgroundColor();

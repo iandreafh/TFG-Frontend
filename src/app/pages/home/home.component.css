@@ -56,7 +56,8 @@
 
 header {
   margin: 0% 3%;
-  padding: 15px;
+  padding: 12px;
+  padding-bottom: 5px;
   /* border-bottom: 3px solid #a21854; */
   color: black;
   display: flex;
@@ -75,11 +76,6 @@ header h1 {
 
 .today {
   color: grey;
-}
-
-.profile img {
-  width: 50px;
-  margin-bottom: 20px;
 }
 
 .form-container {

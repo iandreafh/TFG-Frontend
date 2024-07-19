@@ -30,6 +30,16 @@ export class RegisterComponent implements OnInit {
 
   alertas: boolean = true; // Activado por defecto
   foto: File | null = null;
+  avatars: string[] = [
+    'assets/profile_uploads/profile1.png',
+    'assets/profile_uploads/profile2.png',
+    'assets/profile_uploads/profile3.png',
+    'assets/profile_uploads/profile4.png',
+    'assets/profile_uploads/profile5.png',
+    'assets/profile_uploads/profile6.png',
+    'assets/profile_uploads/profile7.png'
+  ];
+  selectedAvatar: string | null = null;
 
   onFileSelect(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -46,6 +56,12 @@ export class RegisterComponent implements OnInit {
     } else {
       console.error('File input is not defined');
     }
+  }
+
+  selectAvatar(avatar: string): void {
+    this.selectedAvatar = avatar;
+    this.foto = null; // Si selecciona un avatar tras subir la foto, se elimina la foto y se selecciona el avatar
+    this.fileName = 'Subir archivo .png o .jpg'; // Texto por defecto
   }
 
   validateEmail(email: string): boolean {
@@ -84,17 +100,30 @@ export class RegisterComponent implements OnInit {
       return; // Terminar ejecución
     }
 
-    // Generar el JSON para enviar a la API
-    const usuarioData = {
-      Email: this.userData['email'],
-      Password: this.userData['password'],
-      Nombre: this.userData['nombre'],
-      Foto: this.foto ? this.fileName : '',  // Suponiendo que la ruta de la foto se almacenará
-      Alertas: this.alertas
-    };
+    // Validar que se haya subido una foto o seleccionado un avatar
+    if (!this.foto && !this.selectedAvatar) {
+      this.errorMessage = "Debe escoger un avatar o subir una foto de perfil.";
+      return; // Terminar ejecución
+    }
 
-    // Enviar el JSON a la API
-    this.userService.createUser(usuarioData).subscribe({
+    // Generar el FormData para enviar a la API
+    const formData = new FormData();
+    formData.append('Email', this.userData['email']);
+    formData.append('Password', this.userData['password']);
+    formData.append('Nombre', this.userData['nombre']);
+    formData.append('Alertas', this.alertas.toString());
+
+    if (this.foto) {
+      formData.append('Foto', this.foto);
+    } else if (this.selectedAvatar) {
+      let avatarName = this.selectedAvatar.split('/').pop();
+      if (avatarName) {
+        formData.append('avatar', avatarName);
+      }
+    }
+
+    // Enviar el FormData a la API
+    this.userService.createUser(formData).subscribe({
       next: (response) => {
         this.errorMessage = '';
         console.log(response);
@@ -102,7 +131,6 @@ export class RegisterComponent implements OnInit {
         window.location.href = "/login";
       },
       error: (error: HttpErrorResponse) => {
-        
         console.log(error);
         if (error.error && (error.error.error || error.error.message)) {
           this.errorMessage = error.error.message ? error.error.message : error.error.error;

@@ -27,9 +27,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ScrollTopComponent } from './components/scroll-top/scroll-top.component';
 import { LoginComponent } from './pages/login/login.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { ProfileIconComponent } from './components/profile-icon/profile-icon.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
@@ -42,9 +44,11 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     FooterComponent,
     ScrollTopComponent,
     LoginComponent,
+    ResetPasswordComponent,
     RegisterComponent,
     HomeComponent,
     MenuComponent,
+    ProfileIconComponent,
     ProfileComponent,
     DashboardComponent,
   ],

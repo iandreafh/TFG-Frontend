@@ -63,9 +63,6 @@
 <div class="form-container" *ngIf="userData">
     <h2>Mi perfil</h2>
     <div class="page-image">
-        <!-- <img src="https://www.shareicon.net/data/256x256/2016/09/15/829452_user_512x512.png" alt="Perfil" /> -->
-        <!-- <img src="../../../assets/img/profile/man-profile.png" alt="Perfil" /> -->
-        <!-- <img src="../../../assets/img/profile/woman2-profile.jpg" alt="Perfil" /> -->
         <img src="{{userData.Foto}}" alt="Perfil" />
     </div>
     <form (ngSubmit)="saveProfile()">
@@ -79,48 +76,44 @@
             <input type="email" [(ngModel)]="userData.Email" id="email" name="email" class="form-input" [readonly]="!isEditable" autocomplete="off" required>
             </div>
         </div>
-        <div class="form-row">
-            <div class="form-group">
-                <label for="estado">Estado de la cuenta</label>
-                <input type="text" *ngIf="!userData.Check_activo" value="Inactiva" id="estado" name="estado" class="form-input" [readonly]="true" required>
-                <input type="text" *ngIf="userData.Check_activo" value="Activa" id="estado" name="estado" class="form-input" [readonly]="true" required>
-            </div>
-            <div class="form-group" *ngIf="isEditable" [ngClass]="{'editable-input': isEditable}">
-                <label for="actualPassword">Contraseña actual</label>
-                <input type="password" [(ngModel)]="actualPassword" id="actualPassword" name="actualPassword" class="form-input">
-            </div>
-        </div>
-        <div class="form-row" *ngIf="isEditable" [ngClass]="{'editable-input': isEditable}">
-            <div class="form-group">
-                <label for="newPassword">Contraseña nueva</label>
-                <input type="password" [(ngModel)]="newPassword" id="newPassword" name="newPassword" class="form-input" required>
-            </div>
-            <div class="form-group">
-                <label for="newPasswordCheck">Repita la contraseña nueva</label>
-                <input type="password" [(ngModel)]="newPasswordCheck" id="newPasswordCheck" name="newPasswordCheck" class="form-input" required>
-            </div>
-        </div>
-        <p class="passwordText" *ngIf="isEditable">Rellene los campos de contraseña actual y nueva sólo si desea actualizarla.</p>
-        <p class="passwordText" *ngIf="isEditable">La contraseña debe tener entre 6 y 12 caracteres, incluyendo letras y números.</p>
         <div class="form-row full-width" *ngIf="isEditable" [ngClass]="{'editable-input': isEditable}">
-            <label for="foto">Foto de perfil</label>
-            <div class="input-group">
-                <input type="file" #fileInput (change)="onFileSelect($event)" class="form-input file-input">
-                <button mat-icon-button matSuffix 
-                        type="button" 
-                        class="file-upload-button"
-                        (click)="triggerFileInput()">
-                    <mat-icon>upload</mat-icon>
-                </button>
-                <span class="file-upload-text">{{ fileName }}</span>
+            <label>Escoge un avatar para tu perfil</label>
+            <div class="avatar-options">
+              <img *ngFor="let avatar of avatars" [src]="avatar" (click)="selectAvatar(avatar)" [class.selected]="selectedAvatar === avatar" class="avatar-icon">
             </div>
-        </div>
+          </div>
+          <div class="form-row full-width" *ngIf="isEditable" [ngClass]="{'editable-input': isEditable}">
+            <label>Si lo prefieres, sube tu propia foto de perfil</label>
+            <div class="input-group file-div">
+              <input type="file" #fileInput (change)="onFileSelect($event)" class="form-input file-input">
+              <button mat-icon-button matSuffix 
+                      type="button" 
+                      class="file-upload-button"
+                      (click)="triggerFileInput()">
+                  <mat-icon>upload</mat-icon>
+              </button>
+              <span class="file-upload-text">{{ fileName }}</span>
+            </div>
+          </div>
         
         <div class="form-row single-group" [ngClass]="{'editable-input': isEditable}">
             <mat-slide-toggle [(ngModel)]="userData.Alertas" name="alertas" [disabled]="!isEditable">
             <span class="sliderText">Deseo recibir notificaciones de la aplicación por correo electrónico.</span>
             </mat-slide-toggle>
         </div>
+
+        <div class="form-row" *ngIf="isEditable && showPasswords" [ngClass]="{'editable-input': isEditable}">
+            <div class="form-group">
+                <label for="actualPassword">Contraseña actual</label>
+                <input type="password" [(ngModel)]="actualPassword" id="actualPassword" name="actualPassword" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="newPassword">Contraseña nueva</label>
+                <input type="password" [(ngModel)]="newPassword" id="newPassword" name="newPassword" class="form-input" required>
+            </div>
+        </div>
+        <p class="passwordText" *ngIf="isEditable && showPasswords">La contraseña debe tener entre 6 y 12 caracteres, incluyendo letras y números.</p>
+        
         
         <!-- <div class="form-row">
             <button type="submit" class="submit-button">Actualizar contraseña</button>
@@ -147,7 +140,11 @@
 <button *ngIf="isEditable" mat-fab class="floating-button" matTooltip="Cancelar" (click)="cancelEdit()">
     <i class="fa-solid fa-xmark"></i>
 </button>
+<button *ngIf="isEditable" mat-fab class="floating-button-2" matTooltip="Cambiar contraseña" (click)="showChangePassword()">
+    <i class="fa-solid fa-key" *ngIf="!showPasswords"></i>
+    <i class="fa-solid fa-key fa-fade" *ngIf="showPasswords"></i>
+</button>
 
-<button *ngIf="isEditable" mat-fab class="floating-button-2" matTooltip="Guardar perfil" (click)="saveProfile()">
+<button *ngIf="isEditable" mat-fab class="floating-button-3" matTooltip="Guardar perfil" (click)="saveProfile()">
     <i class="fa-solid fa-floppy-disk"></i>
 </button>

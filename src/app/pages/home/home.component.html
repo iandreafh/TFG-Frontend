@@ -3,11 +3,7 @@
     <h1>Hola, {{userName}}</h1>
     <h4 class="today">Hoy es {{today}}</h4>
   </div>
-  <div class="profile">
-    <a routerLink="/profile">
-      <img src="{{userData.Foto}}" alt="Perfil" />
-    </a>
-  </div>
+  <app-profile-icon></app-profile-icon>
 </header>
 
 <div class="form-container" *ngIf="userData">

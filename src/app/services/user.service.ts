@@ -13,8 +13,8 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   // Crear un nuevo usuario
-  createUser(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/usuarios`, userData);
+  createUser(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuarios`, formData);
   }
 
   // Obtener todos los usuarios
