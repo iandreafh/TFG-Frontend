@@ -1,0 +1,114 @@
+@media (min-width: 768px) {
+    /* Para pantallas medianas y grandes, margen lateral de iconos normal */
+    mat-nav-list {
+        width: 70px;
+    }
+
+    .header {
+        padding: 5px 10px 30px 10px;
+    }
+    
+    .header img {
+        width: 52px;
+    }
+    
+    .header h4 {
+        margin: 0px 70px;
+    }
+
+    mat-list-item {
+        padding: 30px 20px;
+    }
+    
+    /* Cambia mat-drawer:hover por mat-drawer-container:hover para que el hover aplique al contenedor */
+    .mat-drawer:hover mat-nav-list {
+        width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Para pantallas pequeñas, menos margen lateral de iconos */
+    mat-nav-list {
+        width: 52px;
+        justify-content: center;
+    }
+
+    .header {
+        padding: 5px 3px 20px 3px;
+    }
+
+    .header img {
+        width: 48px;
+    }
+
+    .header h4 {
+        margin: 0px 60px;
+    }
+    
+    mat-list-item {
+        padding: 25px 10px;
+    }
+    
+    /* Cambia mat-drawer:hover por mat-drawer-container:hover para que el hover aplique al contenedor */
+    .mat-drawer:hover mat-nav-list {
+        width: 168px;
+    }
+}
+
+.menu-container {
+    position: absolute;
+    top: 0px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #cacdea70; /* Fondo de la página */
+}
+
+mat-nav-list {
+    overflow: hidden;
+    transition: width 0.3s;
+}
+
+mat-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: margin 0.3s;
+    height: 100% !important;
+}
+
+mat-icon {
+    font-size: 1.6rem;
+    overflow: visible;
+    float: left;
+}
+
+h4 {
+    opacity: 0;
+    margin: 3px 35px;
+    white-space: nowrap;
+    transition: opacity 0.3s ease-in-out;
+    font-size: 15px;
+}
+
+.header h4 {
+    margin-bottom: 12px;
+    font-size: 19px;
+    font-family: "Alata", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+}
+
+.mat-drawer:hover h4 {
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out 0.2s;
+}
+
+.menu-link {
+    text-decoration: none;
+    color: black;
+}
+
+mat-list-item:hover .menu-link {
+    color: #ed7d2b;
+}

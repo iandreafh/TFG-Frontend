@@ -1,0 +1,130 @@
+.full-width-form {
+    width: 100%;
+}
+
+.full-width-field {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.full-width-mat-form-field {
+    width: 100%;
+}
+
+button {
+    padding: 15px;
+    border: none;
+    font-size: 17px;
+    font-family: "Calibri", sans-serif;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    margin: 10px;
+}
+
+.submit-button {
+    background-color: #ed7d2b;
+    color: #fff !important;
+}
+
+.submit-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.submit-button:hover {
+    opacity: 1;
+}
+
+.delete-button {
+    background-color: #ff4d4d;
+    color: #fff !important;
+}
+
+.delete-button:hover {
+    opacity: 1;
+}
+
+.radio-group-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.radio-group-label {
+    margin-bottom: 4px;
+}
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.mat-radio-button {
+    margin-right: 16px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0;
+}
+
+.participants-list-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.participant-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.participant-photo {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+}
+
+.participant-info {
+    flex: 1;
+    text-align: center;
+}
+
+.participant-header {
+    font-family: 'Calibri', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.participant-data {
+    font-family: 'Calibri', sans-serif;
+    font-size: 15px;
+    color: #555;
+    margin: 0;
+}
+
+.creator-icon {
+    font-size: 20px;
+    color: #ff9800;
+    margin-left: 8px;
+}
+
+.mat-form-field .mat-input-element:disabled,
+textarea[disabled], 
+input[disabled],
+mat-select[disabled] {
+    color: #686868 !important;
+    opacity: 1 !important;
+}
+
+.mat-form-field .mat-form-field-label[disabled] {
+    color: #727272 !important;
+}

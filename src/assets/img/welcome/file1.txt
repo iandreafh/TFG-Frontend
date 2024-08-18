@@ -1,0 +1,3 @@
+Proyecto Alpha - Documento de soporte
+
+Este archivo contiene información relevante sobre el desarrollo del Proyecto Alpha.

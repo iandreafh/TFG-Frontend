@@ -1,0 +1,80 @@
+<div class="form-container" *ngIf="userData">
+    <h2>Mi perfil</h2>
+    <div class="page-image">
+        <img src="{{userData.Foto}}" alt="Perfil" />
+    </div>
+    <form (ngSubmit)="saveProfile()">
+        <div class="form-row" [ngClass]="{'editable-input': isEditable}">
+            <div class="form-group">
+                <label for="nombre">Nombre *</label>
+                <input type="text" [(ngModel)]="userData.Nombre" id="nombre" name="nombre" class="form-input" [readonly]="!isEditable" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" [(ngModel)]="userData.Email" id="email" name="email" class="form-input" [readonly]="!isEditable" autocomplete="off" required>
+            </div>
+        </div>
+        <div class="form-row full-width" *ngIf="isEditable" [ngClass]="{'editable-input': isEditable}">
+            <label>Escoge un avatar para tu perfil</label>
+            <div class="avatar-options">
+                <img *ngFor="let avatar of avatars" [src]="avatar" (click)="selectAvatar(avatar)" [class.selected]="selectedAvatar === avatar" class="avatar-icon">
+            </div>
+        </div>
+        <div class="form-row full-width" *ngIf="isEditable" [ngClass]="{'editable-input': isEditable}">
+            <label>Si lo prefieres, sube tu propia foto de perfil</label>
+            <div class="input-group file-div">
+                <input type="file" #fileInput (change)="onFileSelect($event)" multiple accept=".jpg,.jpeg,.png" class="form-input file-input">
+                <button mat-icon-button matSuffix 
+                        type="button" 
+                        class="file-upload-button"
+                        (click)="triggerFileInput()">
+                    <mat-icon>upload</mat-icon>
+                </button>
+                <span class="file-upload-text">{{ fileName }}</span>
+            </div>
+        </div>
+        
+        <div class="form-row single-group" [ngClass]="{'editable-input': isEditable}">
+            <mat-slide-toggle [(ngModel)]="alertas" name="alertas" [disabled]="!isEditable">
+                <span class="sliderText">Deseo recibir notificaciones de la aplicación por correo electrónico.</span>
+            </mat-slide-toggle>
+        </div>
+
+        <div class="form-row" *ngIf="isEditable && showPasswords" [ngClass]="{'editable-input': isEditable}">
+            <div class="form-group">
+                <label for="actualPassword">Contraseña actual</label>
+                <input type="password" [(ngModel)]="actualPassword" id="actualPassword" name="actualPassword" class="form-input">
+            </div>
+            <div class="form-group">
+                <label for="newPassword">Contraseña nueva</label>
+                <input type="password" [(ngModel)]="newPassword" id="newPassword" name="newPassword" class="form-input" required>
+            </div>
+        </div>
+        <p class="passwordText" *ngIf="isEditable && showPasswords">La contraseña debe tener entre 6 y 12 caracteres, incluyendo letras y números.</p>
+    </form>
+    
+    <div class="error-message" [ngClass]="{'has-error': errorMessage}">
+        <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+</div>
+
+<button *ngIf="!isEditable" mat-fab class="floating-button" matTooltip="Eliminar perfil" (click)="deleteProfile()">
+    <i class="fa-regular fa-trash-can"></i>
+</button>
+
+<button *ngIf="!isEditable" mat-fab class="floating-button-2" matTooltip="Editar perfil" (click)="editProfile()">
+    <i class="fa-solid fa-pen-to-square card-icon"></i>
+</button>
+
+<button *ngIf="isEditable" mat-fab class="floating-button" matTooltip="Cancelar" (click)="cancelEdit()">
+    <i class="fa-solid fa-xmark"></i>
+</button>
+
+<button *ngIf="isEditable" mat-fab class="floating-button-2" matTooltip="Cambiar contraseña" (click)="showChangePassword()">
+    <i class="fa-solid fa-key" *ngIf="!showPasswords"></i>
+    <i class="fa-solid fa-key fa-fade" *ngIf="showPasswords"></i>
+</button>
+
+<button *ngIf="isEditable" mat-fab class="floating-button-3" matTooltip="Guardar perfil" (click)="saveProfile()">
+    <i class="fa-solid fa-floppy-disk"></i>
+</button>

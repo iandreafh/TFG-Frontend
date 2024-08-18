@@ -1,0 +1,78 @@
+<header>
+    <div>
+        <h1>Chats</h1>
+    </div>
+    <div class="error-message" [ngClass]="{'has-error': errorMessage}">
+        <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+    <app-profile-icon></app-profile-icon>
+</header>
+
+<div class="home-container" *ngIf="currentUserId">
+    <div *ngIf="isLoading">
+        <img src="../../assets/img/welcome/loading.png" alt="Cargando contenido" class="empty-img">
+        <h3 class="empty-msg">Cargando...</h3>
+    </div>
+    <div class="card-list-container" *ngIf="!isLoading">
+
+        <div class="card-list">
+            <div class="card-container">
+                <div class="floating-card" *ngFor="let chat of chats" (click)="selectChat(chat)"
+                    [ngClass]="{'selected': selectedChat?.Idusuario === chat.Idusuario, 'unread': !chat.Leido}">
+                    
+                    <div class="card-header">
+                        <img [src]="chat.Foto" alt="{{ chat.Nombre }}" class="chat-avatar">
+                        <h3>{{ chat.Nombre }}</h3>
+                        <span *ngIf="!chat.LeidoPorMi" class="unread-badge">Nuevo</span>
+                    </div>
+                    <div class="chat-meta">
+                        <p>Último mensaje: {{ chat.UltimoMensaje }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-list chat-content" #messagesContainer>
+            <div *ngIf="selectedChat; else selectChatMsg">
+                <div class="chat-header">
+                    <img [src]="selectedChat.Foto" alt="{{ selectedChat.Nombre }}" class="chat-avatar-large">
+                    <div class="chat-header-info">
+                        <h2>{{ selectedChat.Nombre }}</h2>
+                        <p>{{ selectedChat.Email }}</p>
+                    </div>
+                </div>
+                <div class="messages-container">
+                    <div class="messages">
+                        <div *ngFor="let message of messages" 
+                            [ngClass]="{'sent': message.Idemisor === currentUserId, 'received': message.Idreceptor === currentUserId}">
+                            <h4>{{ message.Asunto }}</h4>
+                            <p>{{ message.Contenido }}</p>
+                            <small>
+                                {{ message.Created_at }}
+                                <span *ngIf="message.Check_leido" class="double-check-icon">✓✓</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="message-input-container">
+                    <input type="text" [(ngModel)]="newMessageSubject" placeholder="Asunto" class="message-subject-input">
+                    <textarea [(ngModel)]="newMessageContent" placeholder="Escribe un mensaje..." class="message-content-input"></textarea>
+                    <button (click)="sendMessage()" [disabled]="!newMessageSubject || !newMessageContent">Enviar</button>
+                </div>
+            </div>
+            <ng-template #selectChatMsg>
+                <div class="no-chat-selected">
+                    <img src="../../assets/img/welcome/connect.png" alt="Cargando contenido" class="empty-img">
+                    <h3 class="empty-msg">Seleccione un chat para ver el contenido</h3>
+                </div>
+            </ng-template>
+        </div>
+
+    </div>
+
+    <!-- Botón para crear un nuevo chat -->
+    <button mat-fab class="floating-button" matTooltip="Nuevo chat" (click)="newChat()">
+        <mat-icon>add_circle</mat-icon>
+    </button>
+</div>
