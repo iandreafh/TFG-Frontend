@@ -69,7 +69,6 @@ export class ChatsComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.chatsInterval = setInterval(() => {
       this.loadChats();
     }, 30000); // 30000 ms = 30 segundos
-    // TODO: Bajar tiempo antes de subir
   }
 
   loadChats() {

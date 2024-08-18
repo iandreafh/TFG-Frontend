@@ -64,7 +64,7 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.apiUrl}/auth/login`, { Email: email, Password: password }).pipe(
       map((response) => {
         if (response.access_token) {
-          this.setSession(response.access_token, 8); // Almacena el token por 8 horas
+          this.setSession(response.access_token, 4); // Almacena el token por 4 horas
           this.setAuthStatus(true); // Marca al usuario como autenticado
           this.fetchUserProfile().subscribe(); // Carga el perfil del usuario
         }
