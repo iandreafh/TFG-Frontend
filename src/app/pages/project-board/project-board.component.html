@@ -1,0 +1,327 @@
+<header>
+    <div>
+      <h1>{{proyecto?.Titulo}}</h1>
+    </div>
+    <div class="nav-icons">
+        <button class="filter-tasks-btn" [ngClass]="{'active': showMyTasks}" (click)="toggleMyTasks()">
+            <i *ngIf="!showMyTasks" class="fa-solid fa-filter fa-xl"></i>
+            <i *ngIf="showMyTasks" class="fa-solid fa-filter-circle-xmark fa-xl"></i>
+            <span>Mis tareas</span>
+        </button>
+        <button class="open-side-panel-btn" (click)="toggleSidePanel()">
+            <i *ngIf="!isSidePanelVisible" class="fa-solid fa-comment-dots fa-flip-horizontal fa-xl"></i>
+            <i *ngIf="isSidePanelVisible" class="fa-solid fa-comment-slash fa-flip-horizontal fa-xl"></i>
+            <span>Comentarios</span>
+        </button>
+        <app-profile-icon></app-profile-icon>
+    </div>
+</header>
+
+<div class="home-container" *ngIf="userData">
+  
+    <!-- Div con contenido en caso de no haber datos del proyecto -->
+    <div *ngIf="isLoading">
+        <img src="../../assets/img/welcome/loading.png" alt="Cargando contenido" class="empty-img">
+        <h3 class="empty-msg">Cargando...</h3>
+    </div>
+    <div *ngIf="!isLoading && !proyecto">
+        <img src="../../assets/img/welcome/warning.png" alt="Listado vacío" class="empty-img">
+        <h3 class="empty-msg">{{errorMessage}}</h3>
+    </div>
+    
+    <!-- Panel lateral derecho de comentarios -->
+    <div class="side-panel" [class.hidden]="!isSidePanelVisible">
+        <div class="side-panel-header">
+            <h4>Comentarios</h4>
+        </div>
+        <div class="side-panel-content">
+            <ul>
+                <li *ngFor="let comentario of comentarios">
+                    <div class="comment">
+                        <div class="comment-author">{{ comentario.NombreUsuario }}</div>
+                        <div class="comment-text">{{ comentario.Contenido }}</div>
+                        <div class="comment-attachments" *ngIf="comentario.Archivos?.length">
+                            <div *ngFor="let archivo of comentario.Archivos">
+                                <i class="fa-solid fa-paperclip"></i>
+                                <a [href]="archivo.Ruta" target="_blank">{{ archivo.Nombre }}</a>
+                            </div>
+                        </div>
+                        <div class="comment-date">{{ comentario.Created_at }}</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="side-panel-footer">
+            <textarea [(ngModel)]="nuevoComentario" placeholder="Escribe un comentario... (*)" maxlength="255"></textarea>
+            <div class="file-upload-container">
+                <button class="file-upload-button" (click)="triggerFileInput()">
+                    <i class="fa-solid fa-paperclip"></i> Adjuntar archivos <span *ngIf="archivos.length > 0">({{ archivos.length }})</span>
+                </button>
+                <input type="file" #fileInput (change)="onFileSelect($event)" multiple accept=".pdf,.txt,.doc,.docx,.xls,.xlsx,.odt,.ods,.odp,.jpg,.jpeg,.png" class="file-input">
+                <button (click)="agregarComentario()">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <mat-tab-group *ngIf="proyecto">
+        <mat-tab label="Tablero de tareas">
+            <div class="tab-content">  
+
+                <!-- En caso de no haber ninguna tarea -->
+                <div class="empty-board" *ngIf="tareas.length == 0">
+                    <img src="../../assets/img/welcome/projects.png" alt="Listado vacío" class="empty-img">
+                    <p class="empty-msg">No tienes ninguna tarea creada en este proyecto.</p>
+                    
+                    <div class="floating-card add-new-card" *ngIf="canEdit" (click)="addTask()">
+                        <mat-icon>add_circle</mat-icon>
+                    </div>
+                </div>
+
+                <div class="card-list-container" *ngIf="tareas.length > 0">
+                    
+                    <!-- Columna Pendientes -->
+                    <div class="card-list">
+                        <div class="column-title">
+                            <h4>Pendientes</h4>
+                            <span class="estado-todo estado-counter">{{tareasToDo.length}}</span>
+                        </div>
+                        <div class="card-container">
+                            <div class="floating-card add-new-card" *ngIf="canEdit" (click)="addTask()">
+                                <mat-icon>add_circle</mat-icon>
+                            </div>
+                            <div class="floating-card" *ngFor="let tarea of tareasToDo" (click)="editOrDeleteTask(tarea.Id)">
+                                <div class="card-header">
+                                    <div class="responsable-photo-div" *ngIf="tarea.FotoUsuario">
+                                        <img class="responsable-photo" [src]="tarea.FotoUsuario" alt="Foto de {{ tarea.NombreUsuario }}">
+                                    </div>
+                                    <h3>{{ tarea.Titulo }}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="task-meta">
+                                        <span class="priority" [ngClass]="{
+                                            'prioridad-baja': tarea.Prioridad == 1,
+                                            'prioridad-media': tarea.Prioridad == 2,
+                                            'prioridad-alta': tarea.Prioridad == 3
+                                        }">{{ tarea.Prioridad == 1 ? 'Baja' : tarea.Prioridad == 2 ? 'Media' : 'Alta' }}</span>
+                                        <span class="estado" [ngClass]="{
+                                            'estado-todo': tarea.Estado === 'To do',
+                                            'estado-in-progress': tarea.Estado === 'In progress',
+                                            'estado-blocked': tarea.Estado === 'Blocked',
+                                            'estado-done': tarea.Estado === 'Done'
+                                        }">{{ tarea.Estado }}</span>
+                                        <p class="task-date" *ngIf="tarea.Fechafin"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna En proceso -->
+                    <div class="card-list">
+                        <div class="column-title">
+                            <h4>En proceso</h4>
+                            <span class="estado-in-progress estado-counter">{{tareasProgress.length}}</span>
+                        </div>
+                        <div class="card-container">
+                            <div class="floating-card" *ngFor="let tarea of tareasProgress" (click)="editOrDeleteTask(tarea.Id)">
+                                <div class="card-header">
+                                    <div class="responsable-photo-div" *ngIf="tarea.FotoUsuario">
+                                        <img class="responsable-photo" [src]="tarea.FotoUsuario" alt="Foto de {{ tarea.NombreUsuario }}">
+                                    </div>
+                                    <h3>{{ tarea.Titulo }}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="task-meta">
+                                        <span class="priority" [ngClass]="{
+                                            'prioridad-baja': tarea.Prioridad == 1,
+                                            'prioridad-media': tarea.Prioridad == 2,
+                                            'prioridad-alta': tarea.Prioridad == 3
+                                        }">{{ tarea.Prioridad == 1 ? 'Baja' : tarea.Prioridad == 2 ? 'Media' : 'Alta' }}</span>
+                                        <span class="estado" [ngClass]="{
+                                            'estado-todo': tarea.Estado === 'To do',
+                                            'estado-in-progress': tarea.Estado === 'In progress',
+                                            'estado-blocked': tarea.Estado === 'Blocked',
+                                            'estado-done': tarea.Estado === 'Done'
+                                        }">{{ tarea.Estado }}</span>
+                                        <p class="task-date" *ngIf="tarea.Fechafin"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna Bloqueadas -->
+                    <div class="card-list">
+                        <div class="column-title">
+                            <h4>Bloqueadas</h4>
+                            <span class="estado-blocked estado-counter">{{tareasBlocked.length}}</span>
+                        </div>
+                        <div class="card-container">
+                            <div class="floating-card" *ngFor="let tarea of tareasBlocked" (click)="editOrDeleteTask(tarea.Id)">
+                                <div class="card-header">
+                                    <div class="responsable-photo-div" *ngIf="tarea.FotoUsuario">
+                                        <img class="responsable-photo" [src]="tarea.FotoUsuario" alt="Foto de {{ tarea.NombreUsuario }}">
+                                    </div>
+                                    <h3>{{ tarea.Titulo }}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="task-meta">
+                                        <span class="priority" [ngClass]="{
+                                            'prioridad-baja': tarea.Prioridad == 1,
+                                            'prioridad-media': tarea.Prioridad == 2,
+                                            'prioridad-alta': tarea.Prioridad == 3
+                                        }">{{ tarea.Prioridad == 1 ? 'Baja' : tarea.Prioridad == 2 ? 'Media' : 'Alta' }}</span>
+                                        <span class="estado" [ngClass]="{
+                                            'estado-todo': tarea.Estado === 'To do',
+                                            'estado-in-progress': tarea.Estado === 'In progress',
+                                            'estado-blocked': tarea.Estado === 'Blocked',
+                                            'estado-done': tarea.Estado === 'Done'
+                                        }">{{ tarea.Estado }}</span>
+                                        <p class="task-date" *ngIf="tarea.Fechafin"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Columna Cerradas -->
+                    <div class="card-list">
+                        <div class="column-title">
+                            <h4>Cerradas</h4>
+                            <span class="estado-done estado-counter">{{tareasDone.length}}</span>
+                        </div>
+                        <div class="card-container">
+                            <div class="floating-card" *ngFor="let tarea of tareasDone" (click)="editOrDeleteTask(tarea.Id)">
+                                <div class="card-header">
+                                    <div class="responsable-photo-div" *ngIf="tarea.FotoUsuario">
+                                        <img class="responsable-photo" [src]="tarea.FotoUsuario" alt="Foto de {{ tarea.NombreUsuario }}">
+                                    </div>
+                                    <h3>{{ tarea.Titulo }}</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="task-meta">
+                                        <span class="priority" [ngClass]="{
+                                            'prioridad-baja': tarea.Prioridad == 1,
+                                            'prioridad-media': tarea.Prioridad == 2,
+                                            'prioridad-alta': tarea.Prioridad == 3
+                                        }">{{ tarea.Prioridad == 1 ? 'Baja' : tarea.Prioridad == 2 ? 'Media' : 'Alta' }}</span>
+                                        <span class="estado" [ngClass]="{
+                                            'estado-todo': tarea.Estado === 'To do',
+                                            'estado-in-progress': tarea.Estado === 'In progress',
+                                            'estado-blocked': tarea.Estado === 'Blocked',
+                                            'estado-done': tarea.Estado === 'Done'
+                                        }">{{ tarea.Estado }}</span>
+                                        <p class="task-date" *ngIf="tarea.Fechafin"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                
+                </div>
+            </div>
+
+            <!-- Botones de paginación -->
+            <div class="pagination-controls">
+                <button (click)="prevPage()" [disabled]="currentPage === 0">Anterior</button>
+                <span class="current-page">{{ currentPage + 1 }}</span>
+                <button (click)="nextPage()" [disabled]="!hasNextPage">Siguiente</button>
+            </div>
+
+        </mat-tab>
+
+        <mat-tab label="Detalles del proyecto">
+            <div class="form-container">
+                <form>
+                    <div class="form-row" [ngClass]="{'editable-input': isEditable}">
+                        <div class="form-group">
+                            <label for="titulo">Título *</label>
+                            <input type="text" [(ngModel)]="proyecto.Titulo" id="titulo" name="titulo" class="form-input" [readonly]="!isEditable" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="creador">Creado por</label>
+                            <input type="text" [(ngModel)]="proyecto.NombreCreador.Nombre" id="creador" name="creador" class="form-input" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row single-group" [ngClass]="{'editable-input': isEditable}">
+                        <div class="form-group single-group">
+                            <label for="descripcion">Descripción</label>
+                            <textarea [(ngModel)]="proyecto.Descripcion" id="descripcion" name="descripcion" maxlength="150" rows="3" class="form-input" placeholder="Puedes incluir una breve descripción del proyecto" [readonly]="!isEditable"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="created_at">Creado el día</label>
+                            <input type="text" [(ngModel)]="proyecto.Created_at" id="created_at" name="created_at" class="form-input" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="updated_at">Actualizado el día</label>
+                            <input type="text" [(ngModel)]="proyecto.Updated_at" id="updated_at" name="updated_at" class="form-input" readonly>
+                        </div>
+                    </div>
+                    <div class="form-row full-width members-list">
+                        <h4>Miembros del Proyecto</h4>
+                        <div class="member-item" *ngFor="let miembro of proyecto.Miembros">
+                            <div class="member-photo" *ngIf="miembro.Foto">
+                                <img [src]="miembro.Foto" alt="Foto de {{ miembro.Nombre }}">
+                            </div>
+                            <mat-icon *ngIf="!miembro.Foto">person</mat-icon>
+                            <div class="member-info">
+                                <h5>{{ miembro.Nombre }}</h5>
+                                <p>{{ miembro.Email }}</p>
+                            </div>
+                            <div class="member-info">
+                                <h5>Permisos</h5>
+                                <p *ngIf="!isEditable || !canManageMembers">{{ miembro.Permisos }}</p>
+                                <select *ngIf="isEditable && canManageMembers" [(ngModel)]="miembro.Permisos" (ngModelChange)="onPermissionChange(miembro)" id="permisos-{{ miembro.Idusuario }}" name="miembroPermisos-{{ miembro.Idusuario }}">
+                                    <option value="lector">lector</option>
+                                    <option value="editor">editor</option>
+                                    <option value="gestor">gestor</option>
+                                    <option value="ninguno">ninguno</option>
+                                </select>
+                            </div>
+                        </div>
+        
+                        <div *ngIf="isEditable && canManageMembers" class="member-item">
+                            <div>
+                                <mat-icon>person_add</mat-icon>
+                            </div>
+                            <div class="member-info new-email" [ngClass]="{'editable-input': isEditable}">
+                                <input type="text" [(ngModel)]="newMemberEmail" name="newMemberEmail" class="form-input" placeholder="Email del nuevo miembro" />
+                            </div>
+                            <div class="member-info">
+                                <select [(ngModel)]="newMemberRole" name="newMemberRole">
+                                    <option value="lector">lector</option>
+                                    <option value="editor">editor</option>
+                                    <option value="gestor">gestor</option>
+                                </select>
+                            </div>
+                            <div class="member-info">
+                                <button type="button" (click)="addNewMember()"><mat-icon>add_circle</mat-icon></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="error-message" [ngClass]="{'has-error': errorMessage}">
+                        <p *ngIf="errorMessage">{{ errorMessage }}</p>
+                    </div>
+                </form>
+
+                <button *ngIf="!isEditable && canDeleteProject" mat-fab class="floating-button" matTooltip="Eliminar Proyecto" (click)="deleteProject()">
+                    <i class="fa-regular fa-trash-can"></i>
+                </button>
+                <button *ngIf="!isEditable && canEdit" mat-fab class="floating-button-2" matTooltip="Editar Proyecto" (click)="editProject()">
+                    <i class="fa-solid fa-pen-to-square card-icon"></i>
+                </button>
+                <button *ngIf="isEditable" mat-fab class="floating-button" matTooltip="Cancelar" (click)="cancelEdit()">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+                <button *ngIf="isEditable" mat-fab class="floating-button-2" matTooltip="Guardar Proyecto" (click)="saveProject()">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                </button>
+            </div>
+        </mat-tab>
+        
+    </mat-tab-group>
+</div>

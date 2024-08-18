@@ -1,0 +1,102 @@
+<header>
+    <div>
+        <h1>Agenda</h1>
+        <h4 class="today">Hoy es {{today}}</h4>
+    </div>
+    <app-profile-icon></app-profile-icon>
+</header>
+
+<div class="home-container" *ngIf="userData">
+    <div *ngIf="isLoading">
+        <img src="../../assets/img/welcome/loading.png" alt="Cargando contenido" class="empty-img">
+        <h3 class="empty-msg">Cargando...</h3>
+    </div>
+    <div class="card-list-container" *ngIf="!isLoading">
+
+        <div class="card-list">
+            <h2>Tareas pendientes</h2>
+            <div class="card-container">
+                <div class="floating-card" *ngFor="let tarea of tareas" [routerLink]="['/my-projects', tarea.Idproyecto]"
+                    [ngStyle]="{'border-left': '8px solid', 'border-color': tarea.color}">
+
+                    <div class="card-header">
+                        <h3>{{ tarea.Titulo }}</h3>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="task-meta">
+                            <span class="priority" [ngClass]="{
+                                'prioridad-baja': tarea.Prioridad == 1,
+                                'prioridad-media': tarea.Prioridad == 2,
+                                'prioridad-alta': tarea.Prioridad == 3
+                            }">{{ tarea.Prioridad == 1 ? 'Baja' : tarea.Prioridad == 2 ? 'Media' : 'Alta' }}</span>
+                            <span class="estado" [ngClass]="{
+                                'estado-todo': tarea.Estado === 'To do',
+                                'estado-in-progress': tarea.Estado === 'In progress',
+                                'estado-blocked': tarea.Estado === 'Blocked',
+                                'estado-done': tarea.Estado === 'Done'
+                            }">{{ tarea.Estado }}</span>
+                            <p class="task-date"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination-controls">
+                <button [disabled]="taskPage === 0" (click)="prevPage('tareas')">Anterior</button>
+                <span class="current-page">{{ taskPage + 1 }}</span>
+                <button [disabled]="!taskHasNextPage" (click)="nextPage('tareas')">Siguiente</button>
+            </div>
+        </div>
+
+        <div class="card-list">
+            <div class="header-with-toggle">
+                <h2>Reuniones próximas</h2>
+                <button class="filter-tasks-btn" [ngClass]="{'active': showClosestMeetings}" (click)="toggleClosestMeetings()">
+                    <i *ngIf="!showClosestMeetings" class="fa-solid fa-filter fa-xl"></i>
+                    <i *ngIf="showClosestMeetings" class="fa-solid fa-filter-circle-xmark fa-xl"></i>
+                    <!-- <span *ngIf="!showClosestMeetings">Todas las reuniones</span> -->
+                    <span>Reuniones pasadas ocultas</span>
+                </button>
+            </div>
+            <div class="card-container">
+                <div *ngIf="reuniones.length == 0">
+                    <img src="../../assets/img/welcome/calendar.png" alt="Listado vacío" class="empty-img">
+                    <p class="empty-msg">No tienes ninguna reunión convocada próximamente.</p>
+                </div>
+                <div class="floating-card" *ngFor="let reunion of reuniones"
+                    [ngStyle]="{'border-left': '8px solid', 'border-color': reunion.color}"
+                    (click)="editMeeting(reunion)">
+                    <h3>{{ reunion.Titulo }}</h3>
+                    <div class="card-body">
+                        <div class="task-meta">
+                            <p><i class="fa-regular fa-calendar-check"></i> {{ reunion.Fechahora }}</p>
+                            <p><i class="fa-solid fa-hourglass-half"></i> {{ reunion.Duracion }} minutos</p>
+                            <p><i class="fa-solid" [ngClass]="{
+                            'fa-check-circle': reunion.RespuestaUsuario === 'ACEPTADA',
+                            'fa-circle-question': reunion.RespuestaUsuario === 'PENDIENTE',
+                            'fa-times-circle': reunion.RespuestaUsuario === 'RECHAZADA'
+                            }"></i> {{ reunion.RespuestaUsuario }}</p>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+            <div class="pagination-controls">
+                <button [disabled]="meetingPage === 0" (click)="prevPage('reuniones')">Anterior</button>
+                <span class="current-page">{{ meetingPage + 1 }}</span>
+                <button [disabled]="!meetingHasNextPage" (click)="nextPage('reuniones')">Siguiente</button>
+            </div>
+        </div>
+        
+
+    </div>
+
+    <div class="error-message" [ngClass]="{'has-error': errorMessage}">
+        <p *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+    
+    <!-- Botón para convocar una nueva reunión -->
+    <button mat-fab class="floating-button" matTooltip="Nueva reunión" (click)="newMeeting()">
+        <i class="fa-solid fa-video"></i>
+    </button>
+</div>

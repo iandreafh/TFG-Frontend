@@ -13,7 +13,10 @@ export class ResetPasswordComponent {
   email: string = '';
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService, 
+    private router: Router
+  ) {}
 
   resetPassword() {
     this.authService.resetPassword(this.email).subscribe({

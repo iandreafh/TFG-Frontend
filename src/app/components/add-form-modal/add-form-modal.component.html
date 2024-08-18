@@ -1,0 +1,125 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" class="full-width-form">
+    <div *ngFor="let field of data.fields" class="full-width-field">
+      <ng-container [ngSwitch]="field.type">
+
+        <!-- Campo de texto -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'text'">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [formControlName]="field.name" type="text" maxlength="50" [required]="field.required">
+        </mat-form-field>
+
+        <!-- Campo de correo electrónico -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'email'">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [formControlName]="field.name" type="email" [required]="field.required">
+          <!-- Mensajes de error específicos para correo electrónico -->
+          <mat-error *ngIf="form.get(field.name)?.hasError('email') && form.get(field.name)?.touched">
+            Por favor, introduce un correo electrónico válido.
+          </mat-error>
+          <mat-error *ngIf="form.get(field.name)?.hasError('required') && form.get(field.name)?.touched">
+            Este campo es obligatorio.
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Campo de número -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'number'">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [formControlName]="field.name" type="number" min="1" max="240" [required]="field.required">
+        </mat-form-field>
+
+        <!-- Campo de contraseña con funcionalidad de mostrar/ocultar -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'password'">
+          <mat-label>{{ field.label }}</mat-label>
+          <div class="input-group">
+            <input matInput [type]="hidePassword ? 'password' : 'text'" [formControlName]="field.name" [required]="field.required">
+            <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility()" class="password-toggle">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </div>
+        </mat-form-field>
+
+        <!-- Campo de textarea -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'textarea'">
+          <mat-label>{{ field.label }}</mat-label>
+          <textarea matInput [formControlName]="field.name" [required]="field.required" maxlength="255" rows="2"></textarea>
+        </mat-form-field>
+
+        <!-- Campo de textarea largo -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'longTextarea'">
+          <mat-label>{{ field.label }}</mat-label>
+          <textarea matInput [formControlName]="field.name" [required]="field.required" maxlength="2000" rows="3"></textarea>
+        </mat-form-field>
+
+        <!-- Campo de textarea para listas de correos electrónicos -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'email-list'">
+          <mat-label>{{ field.label }}</mat-label>
+          <textarea matInput [formControlName]="field.name" [required]="field.required" rows="3"></textarea>
+          <mat-hint>Introduce los correos electrónicos separados por comas.</mat-hint>
+        </mat-form-field>
+
+        <!-- Campo de fecha con selector de calendario -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'date'">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [matDatepicker]="picker" [formControlName]="field.name" [required]="field.required" (click)="picker.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Campo de hora -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'time'">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput type="time" [formControlName]="field.name" [required]="field.required">
+        </mat-form-field>
+
+        <!-- Grupo de botones de opción (radio buttons) -->
+        <div *ngSwitchCase="'radio-buttons'" class="full-width-mat-form-field radio-group-container">
+          <label class="radio-group-label">{{ field.label }}</label>
+          <mat-radio-group [formControlName]="field.name" [required]="field.required" class="radio-group">
+            <mat-radio-button *ngFor="let option of field.options" [value]="option.value">
+              {{ option.label }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <!-- Selección de avatar con imágenes clicables -->
+        <div *ngSwitchCase="'avatar-radio-buttons'" class="full-width-mat-form-field avatar-group-container">
+          <label class="radio-group-label">{{ field.label }}</label>
+          <div class="avatar-options">
+            <img *ngFor="let avatar of avatars" [src]="avatar" (click)="selectAvatar(avatar)" [class.selected]="selectedAvatar === avatar" class="avatar-icon">
+          </div>
+        </div>
+
+        <!-- Campo de selección desplegable (select) -->
+        <mat-form-field *ngSwitchCase="'select'" appearance="fill" class="full-width-mat-form-field">
+          <mat-label>{{ field.label }}</mat-label>
+          <mat-select [formControlName]="field.name" [required]="field.required">
+            <mat-option [value]="null">Ninguno</mat-option>
+            <mat-option *ngFor="let option of field.options" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Campo de carga de archivo con previsualización del nombre del archivo -->
+        <div *ngSwitchCase="'file'" class="full-width-mat-form-field file-div">
+          <label>{{ field.label }}</label>
+          <div class="input-group">
+            <input type="file" #fileInput (change)="onFileSelect($event)" multiple accept=".jpg,.jpeg,.png" class="form-input file-input">
+            <button mat-icon-button matSuffix type="button" class="file-upload-button" (click)="triggerFileInput()">
+              <mat-icon>upload</mat-icon>
+            </button>
+            <span class="file-upload-text">{{ fileName }}</span>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </form>
+</div>
+
+<!-- Botones para guardar o cancelar -->
+<div mat-dialog-actions align="center">
+  <button mat-button class="submit-button" (click)="save()" [disabled]="form.invalid">Guardar</button>
+  <button mat-button class="cancel-button" (click)="close()">Cancelar</button>
+</div>

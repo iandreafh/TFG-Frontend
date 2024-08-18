@@ -3,6 +3,8 @@ import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -36,7 +38,12 @@ export class ProfileComponent implements OnInit {
   actualPassword: string = '';
   newPassword: string = '';
 
-  constructor(private userService: UserService, private authService: AuthService, private router: Router) {}
+  constructor(
+    private userService: UserService, 
+    private authService: AuthService, 
+    private router: Router, 
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit() {
     this.authService.getCurrentUser().subscribe(user => {
@@ -44,7 +51,6 @@ export class ProfileComponent implements OnInit {
         this.userData = user;
         this.originalUserData = { ...user }; // Guardar una copia de los datos originales
         this.currentUserId = user.Id;
-        console.log(this.userData.Foto);
       }
     });
     this.router.routeReuseStrategy.shouldReuseRoute = () => { return false; };
@@ -82,32 +88,31 @@ export class ProfileComponent implements OnInit {
     this.isEditable = true;
   }
 
+  // Controla la visualización del formulario para cambiar contraseña
   showChangePassword() {
     this.showPasswords = !this.showPasswords;
-    // Si oculto el cambio de contraseñas, se resetean los valores y mensajes de error
-    if(!this.showPasswords) {
+    if (!this.showPasswords) {
       this.actualPassword = '';
       this.newPassword = '';
-      if(this.errorMessage == "Debe completar todos los campos de contraseña si desea cambiarla."
-        || this.errorMessage == "La contraseña debe tener entre 6 y 12 caracteres, con letras y números.")
+      if (this.errorMessage == "Debe completar todos los campos de contraseña si desea cambiarla."
+        || this.errorMessage == "La contraseña debe tener entre 6 y 12 caracteres, con letras y números.") {
         this.errorMessage = '';
+      }
     }
   }
 
+  // Guarda el perfil actualizado
   saveProfile() {
-    // Validar campos requeridos
     if (!this.userData.Nombre || !this.userData.Email) {
       this.errorMessage = "Debe completar todos los campos obligatorios.";
       return;
     }
 
-    // Validar correo electrónico
     if (!this.validateEmail(this.userData.Email)) {
       this.errorMessage = "Debe proporcionar un correo electrónico válido.";
-      return; // Terminar ejecución
+      return;
     }
 
-    // Validar contraseñas si se ha introducido alguna
     if (this.actualPassword || this.newPassword) {
       if (!this.actualPassword || !this.newPassword) {
         this.errorMessage = "Debe completar todos los campos de contraseña si desea cambiarla.";
@@ -143,8 +148,7 @@ export class ProfileComponent implements OnInit {
       next: () => {
         this.isEditable = false;
         this.errorMessage = '';
-        // Recargo la página para actualizar los datos guardados
-        location.reload();
+        location.reload(); // Recargar página para aplicar cambios
       },
       error: (error: HttpErrorResponse) => {
         if (error.error && (error.error.error || error.error.message)) {
@@ -159,8 +163,7 @@ export class ProfileComponent implements OnInit {
   cancelEdit() {
     this.isEditable = false;
     this.showPasswords = false;
-    // Restaurar los valores originales ya que no se guardan los cambios
-    this.userData = { ...this.originalUserData };
+    this.userData = { ...this.originalUserData }; // Restaurar datos originales
     this.actualPassword = '';
     this.newPassword = '';
     this.foto = null;
@@ -169,10 +172,26 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteProfile() {
-    this.userService.deleteUser(this.currentUserId).subscribe(() => {
-      this.authService.logout();
-    }, error => {
-      console.error('Error al eliminar perfil', error);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { title: 'Dar de baja el perfil', message: '¿Estás seguro de que quieres hacer esto?' }
+    });
+  
+    dialogRef.afterClosed().subscribe({
+      next: (result) => {
+        if (result) {
+          this.userService.deleteUser(this.currentUserId).subscribe({
+            next: () => {
+              this.authService.logout();
+            },
+            error: (error) => {
+              console.error('Error al eliminar perfil', error);
+            }
+          });
+        }
+      },
+      error: (error) => {
+        console.error('Error al cerrar el diálogo', error);
+      }
     });
   }
 

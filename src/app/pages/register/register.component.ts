@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -15,7 +13,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {}
 
-  constructor(private authService: AuthService, private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService
+  ) {}
 
   hide = true;
   errorMessage: string = '';
@@ -126,7 +126,6 @@ export class RegisterComponent implements OnInit {
     this.userService.createUser(formData).subscribe({
       next: (response) => {
         this.errorMessage = '';
-        console.log(response);
         // Una vez registrado, puede hacer login
         window.location.href = "/login";
       },

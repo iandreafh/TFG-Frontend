@@ -8,32 +8,32 @@
 		  <h4><b>Panda</b></h4>
 		  <h4><b>Planning</b></h4>
 		</div>
-		<mat-list-item>
-		  <a class="menu-link" routerLink="/home">
+		<mat-list-item routerLink="/home">
+		  <a class="menu-link">
 			<mat-icon mat-list-icon>home_filled</mat-icon>
 			<h4>Inicio</h4>
 		  </a>
 		</mat-list-item>
-		<mat-list-item>
-		  <a class="menu-link" routerLink="/dashboard">
+		<mat-list-item routerLink="/my-projects">
+		  <a class="menu-link">
 			<mat-icon mat-list-icon>developer_board</mat-icon>
 			<h4>Proyectos</h4>
 		  </a>
 		</mat-list-item>
-		<mat-list-item>
-		  <a class="menu-link" routerLink="/home">
+		<mat-list-item routerLink="/schedule">
+		  <a class="menu-link">
 			<mat-icon mat-list-icon>date_range</mat-icon>
 			<h4>Agenda</h4>
 		  </a>
 		</mat-list-item>
-		<mat-list-item>
-		  <a class="menu-link" routerLink="/home">
+		<mat-list-item routerLink="/chats">
+		  <a class="menu-link">
 			<mat-icon mat-list-icon>mail_outline</mat-icon>
 			<h4>Mensajes</h4>
 		  </a>
 		</mat-list-item>
-		<mat-list-item *ngIf="isAdmin()">
-		  <a class="menu-link" routerLink="/home">
+		<mat-list-item *ngIf="isAdmin()" routerLink="/admin-panel">
+		  <a class="menu-link">
 			<mat-icon>settings</mat-icon>
 			<h4>Panel admin</h4>
 		  </a>
@@ -50,5 +50,5 @@
 	<div class="example-sidenav-content">
 	  <router-outlet></router-outlet>
 	</div>
-  </mat-drawer-container>
+</mat-drawer-container>
   

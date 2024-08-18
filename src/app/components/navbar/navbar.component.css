@@ -27,9 +27,6 @@
 
 .navbar {
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.15);
-  /* font-family: "Alata", sans-serif; */
-  /* font-family: "DM Serif Display", serif;
-  font-family: "Titillium Web", sans-serif; */
   font-family: "Alata", sans-serif;
   font-style: normal;
   position: sticky;

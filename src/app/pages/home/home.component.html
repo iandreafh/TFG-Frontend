@@ -6,38 +6,100 @@
   <app-profile-icon></app-profile-icon>
 </header>
 
-<div class="form-container" *ngIf="userData">
+<div class="home-container" *ngIf="userData">
+  <div *ngIf="isLoading">
+    <img src="../../assets/img/welcome/loading.png" alt="Cargando contenido" class="empty-img">
+    <h3 class="empty-msg">Cargando...</h3>
+  </div>
+  <div class="card-list-container" *ngIf="!isLoading">
 
-  <h2>Mis proyectos</h2>
+    <div class="card-list">
+      <h2 class="headerLink" routerLink="/my-projects">Proyectos recientes</h2>
+      <div class="card-container">
+        <div *ngIf="proyectos.length == 0">
+          <img src="../../assets/img/welcome/projects.png" alt="Listado vacío" class="empty-img">
+          <p class="empty-msg">No perteneces a ningún proyecto ahora mismo, puedes crear uno desde la pestaña de proyectos.</p>
+        </div>
 
-  <div class="card-container">
-    <div class="project-card" *ngFor="let project of projects" [ngStyle]="{'border-left': '10px solid ' + project.color}">
-      <h3>{{ project.title }}</h3>
-      <div class="card-members">
-        <i class="fa-solid fa-users-line card-icon"></i>
-        <p>{{ project.members }}</p>
+        <div class="floating-card" *ngFor="let proyecto of proyectos" [routerLink]="['/my-projects', proyecto.Id]"
+        [ngStyle]="{'border-left': '8px solid', 'border-color': proyecto.color}">
+          <div class="card-members">
+            <div class="member-photos" *ngIf="proyecto.Miembros">
+              <div *ngIf="proyecto.Miembros.length >= 4" class="member-photo extra-members" [ngStyle]="{'z-index': 10}">
+                <span>+{{ proyecto.Miembros.length - 3 }}</span>
+              </div>
+              <ng-container *ngFor="let miembro of proyecto.Miembros; let i = index">
+                <div *ngIf="i < 4" class="member-photo" [ngStyle]="{'z-index': (7 - i)}">
+                  <img [src]="miembro.Foto" alt="Foto de {{ miembro.Nombre }}" [title]="miembro.Nombre">
+                </div>
+              </ng-container>
+            </div>
+          </div>
+          <h3>{{ proyecto.Titulo }}</h3>
+        </div>
       </div>
-      <!-- <div class="card-info">
-        <p>
-          <i class="fa-solid fa-info-circle card-icon"></i>
-          {{ project.description }}
-        </p>
-      </div> -->
-      <!-- <div class="card-update">
-        <i class="fa-solid fa-pen-to-square card-icon"></i>
-        <p>{{ project.lastUpdate }}</p>
-      </div> -->
+    </div>
+
+
+    <div class="card-list">
+      <h2 class="headerLink" routerLink="/schedule">Tareas pendientes</h2>
+      <div class="card-container">
+        <div *ngIf="tareas.length == 0">
+          <img src="../../assets/img/welcome/file-system.png" alt="Listado vacío" class="empty-img">
+          <p class="empty-msg">No tienes ninguna tarea pendiente asignada, puedes asignarte nuevas tareas desde el tablero del proyecto.</p>
+        </div>
+        <div class="floating-card" *ngFor="let tarea of tareas" [routerLink]="['/my-projects', tarea.Idproyecto]"
+         [ngStyle]="{'border-left': '8px solid', 'border-color': tarea.color}">
+          <h3>{{ tarea.Titulo }}</h3>
+          <div class="task-meta">
+            <span [ngClass]="{
+              'estado-todo': tarea.Estado === 'To do',
+              'estado-in-progress': tarea.Estado === 'In progress',
+              'estado-blocked': tarea.Estado === 'Blocked',
+              'estado-done': tarea.Estado === 'Done'
+            }">
+              {{ tarea.Estado }}
+            </span>
+            <span [ngClass]="{
+              'prioridad-baja': tarea.Prioridad == 1,
+              'prioridad-media': tarea.Prioridad == 2,
+              'prioridad-alta': tarea.Prioridad == 3
+            }">
+              {{ tarea.Prioridad == 1 ? 'Baja' : tarea.Prioridad == 2 ? 'Media' : 'Alta' }}
+            </span>
+            <p class="task-date"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+
+
+    <div class="card-list">
+      <h2 class="headerLink" routerLink="/schedule">Reuniones próximas</h2>
+      <div class="card-container">
+        <div *ngIf="reuniones.length == 0">
+          <img src="../../assets/img/welcome/calendar.png" alt="Listado vacío" class="empty-img">
+          <p class="empty-msg">No tienes ninguna reunión convocada próximamente.</p>
+        </div>
+        <div class="floating-card" *ngFor="let reunion of reuniones" routerLink="/schedule"
+         [ngStyle]="{'border-left': '8px solid', 'border-color': reunion.color}">
+          <h3>{{ reunion.Titulo }}</h3>
+        </div>
+      </div>
+      <h2 class="headerLink" routerLink="/chats">Mensajes nuevos</h2>
+      <div class="card-container">
+        <img src="../../assets/img/welcome/mailbox.png" alt="Listado vacío" class="empty-img">
+        <div *ngIf="mensajesNoLeidos == 0">
+          <p class="empty-msg">¡Estás al día! No tienes mensajes sin leer.</p>
+        </div>
+        <div *ngIf="mensajesNoLeidos > 0">
+          <div class="floating-card" routerLink="/chats" [ngStyle]="{'border-left': '8px solid', 'border-color': '#f9c60f'}">
+            <h3><i class="fa-solid fa-bell fa-shake"></i> Tienes {{ mensajesNoLeidos }} mensajes sin leer</h3>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
-
-  <button mat-fab class="floating-button" (click)="add()">
-    <p>+</p>
-  </button>
-
 </div>
-
-
-<button mat-fab class="floating-button" matTooltip="Crear proyecto">  <!--(click)="createProject()"-->
-  <i class="fa-solid fa-plus"></i>
-</button>

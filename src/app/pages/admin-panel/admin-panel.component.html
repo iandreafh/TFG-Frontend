@@ -1,0 +1,88 @@
+<header>
+    <div>
+        <h1>Panel de administración</h1>
+    </div>
+    <div class="nav-icons">
+        <!-- Botón para enviar un comunicado global -->
+        <button (click)="sendGlobalMessage()"><i class="fa-solid fa-paper-plane"></i>Enviar comunicado</button>
+        <!-- Botón para registrar un nuevo administrador -->
+        <button (click)="registerAdmin()"><i class="fa-solid fa-user-shield"></i>Registrar administrador</button>
+    </div>
+</header>
+
+<div class="home-container" *ngIf="userData && userData.Rol == 'admin'">
+    <div *ngIf="isLoading">
+        <img src="../../assets/img/welcome/loading.png" alt="Cargando contenido" class="empty-img">
+        <h3 class="empty-msg">Cargando...</h3>
+    </div>
+
+    <mat-tab-group *ngIf="!isLoading">
+        <!-- Gestión de usuarios -->
+        <mat-tab label="Gestión de usuarios">
+            <div class="tab-content"> 
+                <div *ngIf="usuarios.length === 0">
+                    <img src="../../assets/img/welcome/calendar.png" alt="Listado vacío" class="empty-img">
+                    <p class="empty-msg">No hay usuarios registrados en la aplicación.</p>
+                </div>
+                <table *ngIf="usuarios.length > 0">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let column of userColumns" (click)="sortBy('usuarios', column.name)">
+                                {{ column.label }}
+                                <i *ngIf="userSortBy === column.name" [ngClass]="sortDirection === 'asc' ? 'fa-solid fa-arrow-up' : 'fa-solid fa-arrow-down'"></i>
+                            </th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let usuario of usuarios">
+                            <td *ngFor="let column of userColumns">{{ usuario[column.name] }}</td>
+                            <td>
+                                <button (click)="deleteUser(usuario.Id)" class="delete-button">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination-controls">
+                    <button [disabled]="userPage === 0" (click)="prevPage('usuarios')">Anterior</button>
+                    <span class="current-page">{{ userPage + 1 }}</span>
+                    <button [disabled]="!userHasNextPage" (click)="nextPage('usuarios')">Siguiente</button>
+                </div>
+            </div>
+        </mat-tab>
+
+        <!-- Gestión de proyectos -->
+        <mat-tab label="Gestión de proyectos">
+            <div class="tab-content">
+                <div *ngIf="proyectos.length === 0">
+                    <img src="../../assets/img/welcome/calendar.png" alt="Listado vacío" class="empty-img">
+                    <p class="empty-msg">No hay proyectos registrados en la aplicación.</p>
+                </div>
+                <table *ngIf="proyectos.length > 0">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let column of projectColumns" (click)="sortBy('proyectos', column.name)">
+                                {{ column.label }}
+                                <i *ngIf="projectSortBy === column.name" [ngClass]="sortDirection === 'asc' ? 'fa-solid fa-arrow-up' : 'fa-solid fa-arrow-down'"></i>
+                            </th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let proyecto of proyectos">
+                            <td *ngFor="let column of projectColumns">{{ proyecto[column.name] }}</td>
+                            <td>
+                                <button (click)="deleteProject(proyecto.Id)" class="delete-button">Eliminar</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination-controls">
+                    <button [disabled]="projectPage === 0" (click)="prevPage('proyectos')">Anterior</button>
+                    <span class="current-page">{{ projectPage + 1 }}</span>
+                    <button [disabled]="!projectHasNextPage" (click)="nextPage('proyectos')">Siguiente</button>
+                </div>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>

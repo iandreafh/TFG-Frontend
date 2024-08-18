@@ -1,0 +1,400 @@
+/* Responsive Design */
+@media (min-width: 1024px) {
+    .home-container {
+        max-width: 95%;
+        padding: 30px;
+        margin: auto;
+    }
+
+    .card-list {
+        flex: 0 0 35%; /* Ajusta el ancho de la lista de chats */
+        max-height: 78vh; /* Limita la altura para habilitar el scroll si es necesario */
+        overflow-y: auto; /* Permite el scroll si los chats exceden la altura disponible */
+    }
+
+    .card-list.chat-content {
+        flex: 0 0 65%; /* Ajusta el ancho del contenido del chat */
+        padding: 0px 20px 0px 40px;
+        display: flex;
+        flex-direction: column-reverse;
+        height: 100%;
+        position: relative; /* Para asegurar que los elementos fijos se mantengan dentro del contenedor */
+    }
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        max-width: 90%;
+        padding: 20px;
+        margin: auto;
+    }
+
+    .card-list-container {
+        flex-direction: column;
+    }
+
+    .card-list {
+        flex: 0 1 100%;
+        max-height: 78vh; /* Limita la altura para habilitar el scroll si es necesario */
+        overflow-y: auto; /* Permite el scroll si los chats exceden la altura disponible */
+    }
+
+    .messages div {
+        max-width: 100%;
+    }
+}
+
+/* Header Styling */
+header {
+    margin: 0% 3%;
+    padding: 12px;
+    padding-bottom: 10px;
+    color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-height: 10%;
+}
+
+header h1 {
+    font-family: "Alata", sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    font-size: 26px;
+    margin: 10px 0;
+}
+
+.nav-icons {
+    display: inline-flex;
+}
+
+.floating-button {
+    position: fixed;
+    bottom: 35px;
+    right: 30px;
+    background-color: #ed7d2b; /* El color que muestra tu imagen */
+    color: white; /* Asumiendo que quieres el signo + en blanco */
+    font-family: "Alata", sans-serif;
+    font-size: 20px;
+    z-index: 1000;
+}
+
+button:hover {
+    opacity: 1;
+}
+
+/* Home Container Styling */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fbfbfb;
+    margin-bottom: 30px;
+    padding: 20px;
+}
+
+/* Card List Container */
+.card-list-container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+    height: 78vh; /* Limita la altura total */
+}
+
+/* Card List */
+.card-list {
+    box-sizing: border-box;
+    margin-bottom: 1rem; /* Espacio entre las filas */
+    overflow-y: auto; /* Habilita scroll para la lista de chats */
+    max-height: 100%; /* Asegura que los chats no se encogen */
+}
+
+.card-list:first-child {
+    flex: 0 0 35%; /* 35% para la lista de chats */
+}
+
+.card-list.chat-content {
+    flex: 0 0 65%; /* 65% para el contenido del chat */
+    padding: 0px 20px 0px 40px;
+    display: flex;
+    flex-direction: column-reverse;
+    height: 100%;
+    position: relative;
+}
+
+/* Card Container */
+.card-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Reducir el espaciado entre los chats */
+}
+
+/* Floating Card */
+.floating-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 99%; /* Ocupa todo el ancho disponible */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #fff;
+    overflow: hidden;
+    transition: transform 0.1s ease-in-out;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.floating-card:hover, .floating-card.selected {
+    transform: scale(1.01);
+    background-color: #f9f4f0;
+    overflow: hidden; /* Evita que se muestre el desbordamiento */
+}
+
+/* Unread Badge */
+.unread-badge {
+    background-color: #4f58b2;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Unread Chat */
+.floating-card.unread {
+    /* border-left: 8px solid #4f58b2; */
+}
+
+.floating-card h3 {
+    width: 100%;
+    margin: 5px 0px 15px;
+    font-family: "Alata", sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: left;
+}
+
+/* Chat Avatar Styling */
+.chat-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chat-avatar-large {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 10px;
+}
+
+.chat-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin: 0px 50px 5px;
+    color: black;
+}
+
+.chat-meta p {
+    margin: 0;
+}
+
+/* Chat Header */
+.chat-header {
+    display: flex;
+    align-items: center;
+    background-color: #fbfbfb;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    z-index: 10;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+.chat-header-info h2, p {
+    margin-bottom: 5px;
+}
+
+/* Messages Styling */
+.messages-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column-reverse;
+    overflow-y: auto;
+    padding: 20px 0;
+    /* margin-top: 70px; 
+    margin-bottom: 60px; */
+}
+
+.messages {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 20px;
+}
+
+.messages div {
+    margin-bottom: 10px;
+    max-width: 70%;
+}
+
+.messages h4 {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.messages .sent {
+    align-self: flex-end;
+    text-align: right;
+}
+
+.messages .received {
+    align-self: flex-start;
+    text-align: left;
+}
+
+.messages p {
+    background-color: #e0e0e0;
+    padding: 10px;
+    border-radius: 15px;
+    display: inline-block;
+    margin-bottom: 5px; /* Espaciado para la fecha */
+}
+
+.messages small {
+    display: block; /* Siempre en una nueva línea */
+    font-size: 0.75rem;
+    color: #555;
+}
+
+.double-check-icon {
+    color: #4f58b2; /* Color del doble check */
+    margin-left: 5px;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.messages .sent p {
+    background-color: #4a99da;
+    color: white;
+}
+
+/* Input Message Container Styling */
+.message-input-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #f3f3f3;
+    border-top: 1px solid #ccc;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
+
+.message-subject-input {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: "Alata", sans-serif;
+    font-size: 1rem;
+}
+
+.message-content-input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-family: "Alata", sans-serif;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    resize: none;
+    min-height: 50px;
+}
+
+.message-input-container button {
+    align-self: flex-end;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-family: "Alata", sans-serif;
+    background-color: #4f58b2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.message-input-container button:disabled {
+    background-color: #bbb;
+    cursor: not-allowed;
+}
+
+.message-input-container button:hover:enabled {
+    background-color: #3d468f;
+}
+
+/* Empty State Styling */
+.no-chat-selected {
+    text-align: center;
+    font-family: "Alata", sans-serif;
+    color: #888;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.empty-img {
+    width: 60%;
+    max-width: 1000px;
+    margin: 0 19%;
+    object-fit: contain;
+}
+
+.empty-msg {
+    font-family: "Calibri", sans-serif;
+    font-size: 16px;
+    color: rgb(82, 82, 82);
+    text-align: center;
+    margin: 0 20px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.error-message {
+    color: darkred;
+    font-weight: bold;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    margin-top: 10px;
+    padding: 15px 15px 0px;
+    min-height: 40px;
+  }
+  
+  .has-error {
+    background-color: #fce4e4;
+    border: 1px solid #fcc2c3;
+  }

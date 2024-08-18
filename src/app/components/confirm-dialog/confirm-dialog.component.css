@@ -1,0 +1,39 @@
+.mat-dialog-container {
+    max-width: 80%;
+    width: auto;
+    margin: 0 auto;
+}
+
+.mdc-dialog__title {
+    font-family: "Alata", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 22px;
+    margin: 15px 0px;
+}
+
+.mdc-dialog__content {
+    font-family: "Calibri", sans-serif;
+    font-size: 18px;
+}
+
+button {
+    padding: 15px;
+    border: none;
+    font-size: 17px;
+    font-family: "Calibri", sans-serif;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    margin: 10px;
+}
+
+.submit-button {
+    background-color: #ed7d2b;
+    color: #fff !important;
+}
+
+.submit-button:hover {
+    opacity: 1;
+}

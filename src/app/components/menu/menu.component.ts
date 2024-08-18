@@ -16,8 +16,7 @@ export class MenuComponent {
   }
 
   isAdmin(): boolean {
-    let rol = this.user ? this.user['Rol'] : 'user'
-    return rol === "admin";
+    return this.user?.Rol === 'admin';
   }
 
   onLogout() {

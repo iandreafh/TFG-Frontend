@@ -1,0 +1,125 @@
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" class="full-width-form">
+    <div *ngFor="let field of data.fields" class="full-width-field">
+      <ng-container [ngSwitch]="field.type">
+        <!-- Campo de texto simple -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'text'">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [formControlName]="field.name" type="text" maxlength="50" [required]="field.required">
+        </mat-form-field>
+
+        <!-- Campo de correo electrónico -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'email'">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [formControlName]="field.name" type="email" [required]="field.required">
+        </mat-form-field>
+
+        <!-- Campo numérico -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'number'">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [formControlName]="field.name" type="number" [required]="field.required">
+        </mat-form-field>
+
+        <!-- Área de texto (más grande que un campo de texto simple) -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'textarea'">
+          <mat-label>{{ field.label }}</mat-label>
+          <textarea matInput [formControlName]="field.name" [required]="field.required" maxlength="255" rows="2"></textarea>
+        </mat-form-field>
+
+        <!-- Campo de selección de fecha con calendario emergente -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'date'">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [matDatepicker]="picker" [formControlName]="field.name" [required]="field.required" (click)="picker.open()">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Campo de texto deshabilitado para mostrar una fecha de convocatoria sin posibilidad de edición -->
+        <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngSwitchCase="'convocatoria'">
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [value]="data.meeting.Fechahora" disabled>
+        </mat-form-field>
+
+        <!-- Grupo de botones de radio para selección de opciones -->
+        <div *ngSwitchCase="'radio-buttons'" class="full-width-mat-form-field radio-group-container">
+          <label class="radio-group-label">{{ field.label }}</label>
+          <mat-radio-group [formControlName]="field.name" [required]="field.required" class="radio-group">
+            <mat-radio-button *ngFor="let option of field.options" [value]="option.value">
+              {{ option.label }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <!-- Selector desplegable para elegir entre varias opciones -->
+        <mat-form-field *ngIf="field.type === 'select'" appearance="fill" class="full-width-mat-form-field">
+          <mat-label>{{ field.label }}</mat-label>
+          <mat-select [formControlName]="field.name" [required]="field.required">
+            <mat-option [value]="null">Ninguno</mat-option>
+            <mat-option *ngFor="let option of field.options" [value]="option.value">
+              {{ option.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Lista de participantes con sus fotos y estado de respuesta a una reunión -->
+        <div *ngSwitchCase="'participants-list'" class="full-width-field participants-list-container">
+          <h4>{{ field.label }}</h4>
+          <ul>
+            <li *ngFor="let participant of field.participants" class="participant-item">
+              <img [src]="participant.Foto" alt="{{ participant.Nombre }}" class="participant-photo">
+              <div class="participant-info">
+                <p class="participant-header">
+                  {{ participant.Nombre }}
+                  <!-- Muestra un icono si el participante es el creador de la reunión -->
+                  <mat-icon *ngIf="participant.Idusuario === data.meeting.Idcreador" class="creator-icon" aria-label="Creador">star</mat-icon>
+                </p>
+                <p class="participant-data">{{ participant.Email }}</p>
+              </div>
+              <div class="participant-info">
+                <p class="participant-header">Respuesta</p>
+                <p class="participant-data">
+                  <i class="fa-solid" [ngClass]="{
+                    'fa-check-circle': participant.Respuesta === 'ACEPTADA',
+                    'fa-circle-question': participant.Respuesta === 'PENDIENTE',
+                    'fa-times-circle': participant.Respuesta === 'RECHAZADA'
+                    }"></i>
+                  {{ participant.Respuesta }}
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Botones de radio para que el usuario actual responda a una convocatoria -->
+        <div *ngSwitchCase="'user-response'" class="full-width-field">
+          <h4>{{ field.label }}</h4>
+          <mat-radio-group [formControlName]="field.name">
+            <mat-radio-button *ngFor="let option of field.options" [value]="option.value">
+              {{ option.label }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Mostrar fecha de creación y última actualización, si están disponibles -->
+    <div class="full-width-field">
+      <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngIf="data.task?.Created_at || data.meeting?.Created_at">
+        <mat-label>Fecha de creación</mat-label>
+        <input matInput [value]="data.task?.Created_at || data.meeting?.Created_at | date:'dd/MM/yyyy, h:mm a'" disabled>
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="full-width-mat-form-field" *ngIf="data.task?.Updated_at || data.meeting?.Updated_at">
+        <mat-label>Última actualización</mat-label>
+        <input matInput [value]="data.task?.Updated_at || data.meeting?.Updated_at | date:'dd/MM/yyyy, h:mm a'" disabled>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+
+<!-- Botones de acción: Actualizar, Cancelar, y Eliminar (solo visible si es el creador) -->
+<div mat-dialog-actions align="center">
+  <button mat-button class="submit-button" (click)="save()" [disabled]="form.invalid">Actualizar</button>
+  <button mat-button class="cancel-button" (click)="close()">Cancelar</button>
+  <button *ngIf="isCreator" mat-button class="delete-button" (click)="confirmDelete()">Eliminar</button>
+</div>

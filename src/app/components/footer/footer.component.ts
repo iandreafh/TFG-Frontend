@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ApiGenericService} from '../../services/api-generic.service';
 
 @Component({
   selector: 'app-footer',
@@ -8,7 +7,7 @@ import { ApiGenericService} from '../../services/api-generic.service';
 })
 export class FooterComponent {
 
-  constructor(private apiGenericService: ApiGenericService) { }
+  constructor() { }
 
   ngOnInit(): void {}
 

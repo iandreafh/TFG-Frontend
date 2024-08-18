@@ -1,0 +1,136 @@
+.full-width-form {
+    width: 100%;
+}
+
+.full-width-field {
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.full-width-mat-form-field {
+    width: 100%;
+}
+
+.mat-form-field {
+    width: 100%;
+}
+
+button {
+    padding: 15px;
+    border: none;
+    font-size: 17px;
+    font-family: "Calibri", sans-serif;
+    cursor: pointer;
+    border-radius: 5px;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+    margin: 10px;
+}
+
+.submit-button {
+    background-color: #ed7d2b;
+    color: #fff !important;
+}
+
+.submit-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.submit-button:hover {
+    opacity: 1;
+}
+
+.avatar-options {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+    width: 100%;
+    justify-content: center; /* Centra los avatares */
+}
+
+.avatar-icon {
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    width: 45px;
+    height: 45px;
+}
+
+.avatar-icon.selected {
+    border-color: #4b62ae; /* Resaltar el avatar seleccionado */
+}
+
+.file-div {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.file-input {
+    display: none; /* Ocultar el input de archivo */
+}
+
+.file-upload-button {
+    margin-left: 10px;
+}
+
+.file-upload-text {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-toggle {
+    position: absolute;
+    top: -25%;
+    right: -10px;
+    transform: translateY(-50%);
+    margin-right: 10px;
+}
+
+/* Radio buttons alineados a la izquierda */
+.radio-group-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.radio-group-label {
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Avatares centrados */
+.avatar-group-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinea al centro */
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0;
+}
+
+.mat-icon {
+    font-size: 24px;
+}

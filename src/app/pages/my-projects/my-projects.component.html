@@ -1,0 +1,76 @@
+<header>
+  <div>
+    <h1>Proyectos</h1>
+  </div>
+  <app-profile-icon></app-profile-icon>
+</header>
+
+<div class="home-container" *ngIf="userData">
+  <mat-tab-group>
+    <mat-tab label="Mis proyectos activos">
+      <div class="tab-content">
+        <div class="card-list">
+          <div class="card-container">
+            <div class="floating-card" *ngFor="let proyecto of proyectosActivos"
+              [routerLink]="['/my-projects', proyecto.Id]"
+              [ngStyle]="{'border-left': '8px solid', 'border-color': proyecto.color}">
+              <div class="card-members">
+                <div class="member-photos" *ngIf="proyecto.Miembros">
+                  <div *ngIf="proyecto.Miembros.length >= 4" class="member-photo extra-members" [ngStyle]="{'z-index': 10}">
+                    <span>+{{ proyecto.Miembros.length - 3 }}</span>
+                  </div>
+                  <ng-container *ngFor="let miembro of proyecto.Miembros; let i = index">
+                    <div *ngIf="i < 4" class="member-photo" [ngStyle]="{'z-index': (7 - i)}">
+                      <img [src]="miembro.Foto" alt="Foto de {{ miembro.Nombre }}" [title]="miembro.Nombre">
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <h3>{{ proyecto.Titulo }}</h3>
+            </div>
+
+            <div class="floating-card add-new-card" (click)="addProject()">
+              <mat-icon>add_circle</mat-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    
+    <mat-tab label="Mis proyectos inactivos">
+      <div class="tab-content">
+        <div class="card-list card-inactive">
+          <div class="card-container">
+            <div class="floating-card inactive-card" *ngFor="let proyecto of proyectosInactivos"
+              [ngStyle]="{'border-left': '8px solid', 'border-color': proyecto.color}"
+              (click)="handleInactiveProjectClick(proyecto)">
+              <div class="card-members">
+                <div class="member-photos" *ngIf="proyecto.Miembros">
+                  <div *ngIf="proyecto.Miembros.length >= 4" class="member-photo extra-members" [ngStyle]="{'z-index': 10}">
+                    <span>+{{ proyecto.Miembros.length - 3 }}</span>
+                  </div>
+                  <ng-container *ngFor="let miembro of proyecto.Miembros; let i = index">
+                    <div *ngIf="i < 4" class="member-photo" [ngStyle]="{'z-index': (7 - i)}">
+                      <img [src]="miembro.Foto" alt="Foto de {{ miembro.Nombre }}" [title]="miembro.Nombre">
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+              <h3>{{ proyecto.Titulo }}</h3>
+            </div>
+            
+            <div *ngIf="proyectosInactivos.length == 0">          
+              <img src="../../assets/img/welcome/file-system.png" alt="Listado vacío" class="empty-img">
+              <h3 class="empty-msg">No tienes ningún proyecto inactivo en este momento.</h3>
+            </div>
+          </div>
+          
+          <div class="error-message" [ngClass]="{'has-error': errorMessage}">
+            <p *ngIf="errorMessage">{{ errorMessage }}</p>
+          </div>
+        </div>
+        
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -51,7 +51,7 @@
       <div class="form-row full-width">
         <label for="foto">Si lo prefieres, sube tu propia foto de perfil</label>
         <div class="input-group file-div">
-          <input type="file" #fileInput (change)="onFileSelect($event)" class="form-input file-input">
+          <input type="file" #fileInput (change)="onFileSelect($event)" multiple accept=".jpg,.jpeg,.png" class="form-input file-input">
           <button mat-icon-button matSuffix 
                   type="button" 
                   class="file-upload-button"
