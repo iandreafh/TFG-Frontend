@@ -263,7 +263,7 @@
                     </div>
                     <div class="form-row full-width members-list">
                         <h4>Miembros del Proyecto</h4>
-                        <div class="member-item" *ngFor="let miembro of proyecto.Miembros">
+                        <div class="member-item" [ngClass]="{'is-inactive': !miembro.Check_activo}" *ngFor="let miembro of proyecto.Miembros">
                             <div class="member-photo" *ngIf="miembro.Foto">
                                 <img [src]="miembro.Foto" alt="Foto de {{ miembro.Nombre }}">
                             </div>

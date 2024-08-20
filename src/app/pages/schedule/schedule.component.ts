@@ -32,13 +32,13 @@ export class ScheduleComponent implements OnInit {
   taskPage: number = 0;
   taskLimit: number = 5;
   taskPageStart: number = 0;
-  taskHasNextPage: boolean = true;
+  taskHasNextPage: boolean = false;
 
   // Variables de paginación para reuniones
   meetingPage: number = 0;
   meetingLimit: number = 5;
   meetingPageStart: number = 0;
-  meetingHasNextPage: boolean = true;
+  meetingHasNextPage: boolean = false;
   
   constructor(
     private authService: AuthService,

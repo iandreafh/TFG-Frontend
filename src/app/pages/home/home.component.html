@@ -25,8 +25,8 @@
         [ngStyle]="{'border-left': '8px solid', 'border-color': proyecto.color}">
           <div class="card-members">
             <div class="member-photos" *ngIf="proyecto.Miembros">
-              <div *ngIf="proyecto.Miembros.length >= 4" class="member-photo extra-members" [ngStyle]="{'z-index': 10}">
-                <span>+{{ proyecto.Miembros.length - 3 }}</span>
+              <div *ngIf="proyecto.Miembros.length > 4" class="member-photo extra-members" [ngStyle]="{'z-index': 10}">
+                <span>+{{ proyecto.Miembros.length - 4 }}</span>
               </div>
               <ng-container *ngFor="let miembro of proyecto.Miembros; let i = index">
                 <div *ngIf="i < 4" class="member-photo" [ngStyle]="{'z-index': (7 - i)}">

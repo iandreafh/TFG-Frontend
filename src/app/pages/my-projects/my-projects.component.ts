@@ -130,7 +130,7 @@ export class MyProjectsComponent implements OnInit {
       });
     } else {
       this.errorMessage = 'No tienes permisos para reactivar este proyecto';
-      setTimeout(() => this.errorMessage = '', 3000); // Limpiar mensaje de error después de 3 segundos
+      setTimeout(() => this.errorMessage = '', 5000); // Limpiar mensaje de error después de 3 segundos
     }
   }
 }

@@ -23,6 +23,7 @@ export class AdminPanelComponent implements OnInit {
 
   // Columnas para usuarios y proyectos
   userColumns = [
+    { name: 'Id', label: 'Id' },
     { name: 'Nombre', label: 'Nombre' },
     { name: 'Email', label: 'Email' },
     { name: 'Alertas', label: 'Alertas' },
@@ -36,6 +37,7 @@ export class AdminPanelComponent implements OnInit {
     { name: 'Titulo', label: 'Título' },
     { name: 'Created_at', label: 'Creado' },
     { name: 'Updated_at', label: 'Actualizado' },
+    { name: 'Idcreador', label: 'Creador' },
     { name: 'Check_activo', label: 'Activo' }
   ];
 

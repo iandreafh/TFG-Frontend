@@ -17,9 +17,13 @@
 
         <div class="card-list">
             <div class="card-container">
+                <div *ngIf="chats.length == 0" class="empty-msg">
+                    <h3>No tienes ningún chat abierto, puedes crearlo en el botón situado abajo a la derecha.</h3>
+                </div>
+
                 <div class="floating-card" *ngFor="let chat of chats" (click)="selectChat(chat)"
                     [ngClass]="{'selected': selectedChat?.Idusuario === chat.Idusuario, 'unread': !chat.Leido}">
-                    
+
                     <div class="card-header">
                         <img [src]="chat.Foto" alt="{{ chat.Nombre }}" class="chat-avatar">
                         <h3>{{ chat.Nombre }}</h3>

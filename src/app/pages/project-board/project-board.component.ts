@@ -284,7 +284,8 @@ export class ProjectBoardComponent implements OnInit, OnDestroy {
           { label: 'Fecha inicio', name: 'Fechainicio', type: 'date', required: false },
           { label: 'Fecha fin', name: 'Fechafin', type: 'date', required: false },
           { label: 'Usuario asignado', name: 'Idusuario', type: 'select', required: false, 
-            options: this.proyecto.Miembros.map((miembro: any) => ({ value: miembro.Idusuario, label: miembro.Nombre })) }
+            options: this.proyecto.Miembros.filter((miembro: any) => miembro.Check_activo)
+              .map((miembro: any) => ({ value: miembro.Idusuario, label: miembro.Nombre })) }
         ]
       }
     });
@@ -328,7 +329,8 @@ export class ProjectBoardComponent implements OnInit, OnDestroy {
               { label: 'Fecha inicio', name: 'Fechainicio', type: 'date', required: false },
               { label: 'Fecha fin', name: 'Fechafin', type: 'date', required: false },
               { label: 'Usuario asignado', name: 'Idusuario', type: 'select', required: false, 
-                options: this.proyecto.Miembros.map((miembro: any) => ({ value: miembro.Idusuario, label: miembro.Nombre })) }
+                options: this.proyecto.Miembros.filter((miembro: any) => miembro.Check_activo)
+                  .map((miembro: any) => ({ value: miembro.Idusuario, label: miembro.Nombre })) }
             ],
             task: task,
             canEdit: this.canEdit,

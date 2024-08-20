@@ -66,7 +66,7 @@
 
 header {
   margin: 0% 3%;
-  padding: 15px;
+  padding: 8px 15px 5px;
   padding-bottom: 10px;
   /* border-bottom: 3px solid #a21854; */
   color: black;
@@ -439,27 +439,3 @@ h2 {
 .fa-shake {
   animation: fa-shake 1.5s infinite linear;
 }
-
-
-
-
-
-:root {
-
-  color:
-  #f94877,
-  #ed7d2b',
-  #1c8be6',
-  #07cdae',
-  #8513e1, 
-  #f9c60f;
-
-  color:
-  #f75573,
-  #e38d50',
-  #4a99da',
-  #51b9aa',
-  #985bc9, 
-  #dfc565 
-}
-

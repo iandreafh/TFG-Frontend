@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadTopActiveProjects() {
-    this.projectService.getTopActiveProjects(3).subscribe({
+    this.projectService.getTopActiveProjects(4).subscribe({
       next: (proyectos: any) => {
         this.proyectos = proyectos.map((proyecto: any) => {
           proyecto.color = this.setBackgroundColor();
@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
   }
 
   loadTopActiveTasks() {
-    this.projectService.getTopActiveTask(this.currentUserId, 3).subscribe({
+    this.projectService.getTopActiveTask(this.currentUserId, 4).subscribe({
       next: (tareas: any) => {
         this.tareas = tareas.map((tarea: any) => {
           tarea.color = this.setBackgroundColor();
