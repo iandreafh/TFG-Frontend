@@ -41,4 +41,22 @@ export class DateService extends NativeDateAdapter {
 
     return `${dayName}, ${day} de ${monthName} de ${year}`;
   }
+  
+  convertToTimestamp(datePart: string, timePart?: string): string {
+
+    // Separar día, mes, año
+    const [day, month, year] = datePart.split('/').map(Number);
+    let date = null;
+    if(timePart) {
+      // Crear un objeto DateTime si manda la hora
+      date = new Date(year, month - 1, day, ...timePart.split(':').map(Number));
+    } else {
+      date = new Date(year, month - 1, day); // Meses en JS son de 0 a 11
+    }
+  
+    // Formatear la fecha a 'YYYY-MM-DD HH:mm:ss'
+    const formattedDate = date.toISOString().slice(0, 19).replace('T', ' ');
+  
+    return formattedDate;
+  }
 }

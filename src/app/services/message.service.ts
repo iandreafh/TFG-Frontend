@@ -26,12 +26,8 @@ export class MessageService {
   }
 
   // Obtener los mensajes de un chat específico con un usuario
-  getChatMessages(idUsuario: number, start: number = 0, limit: number = 10): Observable<any> {
-    const params = {
-      start: start,  // Desplazamiento para la paginación
-      limit: limit   // Límite de resultados por página
-    };
-    return this.http.get<any>(`${this.apiUrl}/mensajes/chats/${idUsuario}`, { params });
+  getChatMessages(idUsuario: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/mensajes/chats/${idUsuario}`);
   }
 
   // Crear un nuevo mensaje en un chat

@@ -173,7 +173,7 @@ export class ProfileComponent implements OnInit {
 
   deleteProfile() {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { title: 'Dar de baja el perfil', message: '¿Estás seguro de que quieres hacer esto?' }
+      data: { title: 'Dar de baja el perfil', message: '¿Estás seguro de que quieres hacer esto? Si tu perfil está de baja durante más de 6 meses, el equipo de Panda Planning podrá eliminar todos tus datos.' }
     });
   
     dialogRef.afterClosed().subscribe({
@@ -184,7 +184,7 @@ export class ProfileComponent implements OnInit {
               this.authService.logout();
             },
             error: (error) => {
-              console.error('Error al eliminar perfil', error);
+              console.error('Error al dar de baja perfil', error);
             }
           });
         }

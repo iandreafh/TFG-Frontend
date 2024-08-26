@@ -194,7 +194,7 @@ export class ScheduleComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const dateTime = this.combineDateAndTime(result.Fecha, result.Hora);
+        const dateTime = this.dateService.convertToTimestamp(result.Fecha, result.Hora);
         result.FechaHora = dateTime;
         delete result.Fecha;
         delete result.Hora;
@@ -204,7 +204,7 @@ export class ScheduleComponent implements OnInit {
             this.loadMeetings();
           },
           error: (error: any) => {
-            console.error('Error al convocar la nueva reunión:', error);
+            console.error('Error al convocar la nueva reunión: ', error);
             this.errorMessage = error.error.error;
             setTimeout(() => this.errorMessage = '', 8000);
           }
@@ -258,4 +258,5 @@ export class ScheduleComponent implements OnInit {
     const dateTimeString = `${date} ${time}`;
     return dateTimeString;
   }
+  
 }

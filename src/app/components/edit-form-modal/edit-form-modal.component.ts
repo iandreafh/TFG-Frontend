@@ -32,7 +32,6 @@ export class EditFormModalComponent implements OnInit {
   ) {
     this.form = this.fb.group({});
     this.isCreator = data.isCreator || false; // Asigna si el usuario es el creador de la reunión o tarea
-    console.log(data); // Muestra los datos en la consola para depuración
   }
 
   ngOnInit(): void {

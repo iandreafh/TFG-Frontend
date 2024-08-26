@@ -57,7 +57,7 @@
                 <button class="file-upload-button" (click)="triggerFileInput()">
                     <i class="fa-solid fa-paperclip"></i> Adjuntar archivos <span *ngIf="archivos.length > 0">({{ archivos.length }})</span>
                 </button>
-                <input type="file" #fileInput (change)="onFileSelect($event)" multiple accept=".pdf,.txt,.doc,.docx,.xls,.xlsx,.odt,.ods,.odp,.jpg,.jpeg,.png" class="file-input">
+                <input type="file" #fileInput (change)="onFileSelect($event)" multiple accept=".pdf,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx.odt,.ods,.odp,.jpg,.jpeg,.png,.gif" class="file-input">
                 <button (click)="agregarComentario()">Enviar</button>
             </div>
         </div>
@@ -110,7 +110,7 @@
                                             'estado-blocked': tarea.Estado === 'Blocked',
                                             'estado-done': tarea.Estado === 'Done'
                                         }">{{ tarea.Estado }}</span>
-                                        <p class="task-date" *ngIf="tarea.Fechafin"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
+                                        <p class="task-date" *ngIf="tarea.Fechafin" [ngClass]="{'task-overdue': isTaskOverdue(tarea.Fechafin)}"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -308,10 +308,10 @@
                     </div>
                 </form>
 
-                <button *ngIf="!isEditable && canDeleteProject" mat-fab class="floating-button" matTooltip="Eliminar Proyecto" (click)="deleteProject()">
+                <button *ngIf="!isEditable && canDeleteProject" mat-fab class="floating-button" matTooltip="Dar de baja" (click)="deleteProject()">
                     <i class="fa-regular fa-trash-can"></i>
                 </button>
-                <button *ngIf="!isEditable && canEdit" mat-fab class="floating-button-2" matTooltip="Editar Proyecto" (click)="editProject()">
+                <button *ngIf="!isEditable && canEdit" mat-fab class="floating-button-2" matTooltip="Editar proyecto" (click)="editProject()">
                     <i class="fa-solid fa-pen-to-square card-icon"></i>
                 </button>
                 <button *ngIf="isEditable" mat-fab class="floating-button" matTooltip="Cancelar" (click)="cancelEdit()">

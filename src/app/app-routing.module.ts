@@ -1,6 +1,5 @@
 import { NgModule, inject } from '@angular/core';
 import { RouterModule, Routes, CanActivateFn, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { AuthService } from './services/auth.service';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -14,37 +13,32 @@ import { ScheduleComponent } from './pages/schedule/schedule.component';
 import { ChatsComponent } from './pages/chats/chats.component';
 import { AdminPanelComponent } from './pages/admin-panel/admin-panel.component';
 
+// Guard para rutas que requieren autenticación
 export function authenticationGuard(): CanActivateFn {
   return () => {
     const authService = inject(AuthService);
     const router = inject(Router);
-    return authService.getAuthStatus().pipe(
-      map(status => {
-        if (status) {
-          return true;
-        } else {
-          router.navigate(['/login']);
-          return false;
-        }
-      })
-    );
+    if (authService.hasToken()) {
+      return true; // Permite el acceso si está autenticado
+    } else {
+      authService.logout(); // Limpia la sesión si el token es inválido o no existe
+      router.navigate(['/login']);
+      return false; // Redirige a la página de inicio de sesión si no está autenticado
+    }
   };
 }
 
+// Guard para rutas accesibles solo para usuarios no autenticados
 export function loggedInGuard(): CanActivateFn {
   return () => {
     const authService = inject(AuthService);
     const router = inject(Router);
-    return authService.getAuthStatus().pipe(
-      map(status => {
-        if (status) {
-          router.navigate(['/home']);
-          return false;
-        } else {
-          return true;
-        }
-      })
-    );
+    if (authService.hasToken()) {
+      router.navigate(['/home']); // Si está autenticado, redirige a /home
+      return false;
+    } else {
+      return true; // Permite el acceso si no está autenticado
+    }
   };
 }
 

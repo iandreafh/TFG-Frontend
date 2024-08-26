@@ -54,7 +54,8 @@
 
         <div class="card-list">
             <div class="header-with-toggle">
-                <h2>Reuniones próximas</h2>
+                <h2 *ngIf="showClosestMeetings">Reuniones próximas</h2>
+                <h2 *ngIf="!showClosestMeetings">Reuniones</h2>
                 <button class="filter-tasks-btn" [ngClass]="{'active': showClosestMeetings}" (click)="toggleClosestMeetings()">
                     <i *ngIf="!showClosestMeetings" class="fa-solid fa-filter fa-xl"></i>
                     <i *ngIf="showClosestMeetings" class="fa-solid fa-filter-circle-xmark fa-xl"></i>

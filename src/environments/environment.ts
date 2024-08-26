@@ -1,4 +1,5 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://104.248.161.139:5000' // URL de tu API
+    apiUrl: 'https://pandaplanning.es/api' // URL de tu API
+    // TODO Actualizar ruta segun despliegue a https o lo que sea
 };

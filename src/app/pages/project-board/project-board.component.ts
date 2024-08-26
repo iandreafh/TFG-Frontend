@@ -15,12 +15,15 @@ const ALLOWED_FILE_TYPES = [
   { extension: '.docx', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' },
   { extension: '.xls', mimeType: 'application/vnd.ms-excel' },
   { extension: '.xlsx', mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+  { extension: '.ppt', mimeType: 'application/vnd.ms-powerpoint' },
+  { extension: '.pptx', mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' },
   { extension: '.odt', mimeType: 'application/vnd.oasis.opendocument.text' },
   { extension: '.ods', mimeType: 'application/vnd.oasis.opendocument.spreadsheet' },
   { extension: '.odp', mimeType: 'application/vnd.oasis.opendocument.presentation' },
   { extension: '.jpg', mimeType: 'image/jpeg' },
   { extension: '.jpeg', mimeType: 'image/jpeg' },
-  { extension: '.png', mimeType: 'image/png' }
+  { extension: '.png', mimeType: 'image/png' },
+  { extension: '.gif', mimeType: 'image/gif' }
 ];
 
 @Component({
@@ -292,6 +295,8 @@ export class ProjectBoardComponent implements OnInit, OnDestroy {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        result.Fechainicio = result.Fechainicio ? this.dateService.convertToTimestamp(result.Fechainicio) : null;
+        result.Fechafin = result.Fechafin ? this.dateService.convertToTimestamp(result.Fechafin) : null;
         this.projectService.createTask(this.proyecto.Id, result).subscribe({
           next: (response: any) => {
             this.loadProjectTasks(this.proyecto.Id);
@@ -334,7 +339,7 @@ export class ProjectBoardComponent implements OnInit, OnDestroy {
             ],
             task: task,
             canEdit: this.canEdit,
-            isCreator: this.currentUserId === task.Idcreador
+            isCreator: this.canDeleteProject
           }
         });
         
@@ -350,6 +355,8 @@ export class ProjectBoardComponent implements OnInit, OnDestroy {
                 }
               });
             } else {
+              result.Fechainicio = result.Fechainicio ? this.dateService.convertToTimestamp(result.Fechainicio) : null;
+              result.Fechafin = result.Fechafin ? this.dateService.convertToTimestamp(result.Fechafin) : null;
               this.projectService.updateTask(projectId, taskId, result).subscribe({
                 next: () => {
                   this.loadProjectTasks(this.proyecto.Id);
@@ -444,7 +451,7 @@ export class ProjectBoardComponent implements OnInit, OnDestroy {
   deleteProject() {
     if (this.canDeleteProject) {
       const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-        data: { title: 'Eliminar proyecto', message: '¿Estás seguro de que quieres eliminar este proyecto?' }
+        data: { title: 'Dar de baja proyecto', message: '¿Estás seguro de que quieres dar de baja este proyecto?' }
       });
 
       dialogRef.afterClosed().subscribe({
@@ -467,6 +474,12 @@ export class ProjectBoardComponent implements OnInit, OnDestroy {
     } else {
       console.error('No tienes permisos para eliminar este proyecto.');
     }
+  }
+
+  isTaskOverdue(fechaFin: string): boolean {
+    const today = new Date().setHours(0, 0, 0, 0);
+    const fecha = new Date(fechaFin).setHours(0, 0, 0, 0);
+    return fecha < today;
   }
 
 }
