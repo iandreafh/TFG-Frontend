@@ -186,7 +186,7 @@ export class ScheduleComponent implements OnInit {
           ]},
           { label: 'Fecha', name: 'Fecha', type: 'date', required: true },
           { label: 'Hora', name: 'Hora', type: 'time', required: true },
-          { label: 'Duración (minutos)', name: 'Duracion', type: 'number', required: true },
+          { label: 'Duración (minutos)', name: 'Duracion', type: 'number', required: false },
           { label: 'Participantes', name: 'Participantes', type: 'email-list', required: true }
         ]
       }
@@ -224,7 +224,7 @@ export class ScheduleComponent implements OnInit {
                 { label: 'Descripción', name: 'Descripcion', type: 'textarea', required: false },
                 { label: 'Modalidad', name: 'Modalidad', type: 'text', required: true },
                 { label: 'Fecha y hora', name: 'FechaHora', type: 'convocatoria', required: true },
-                { label: 'Duración (minutos)', name: 'Duracion', type: 'number', required: true },
+                { label: 'Duración (minutos)', name: 'Duracion', type: 'number', required: false },
                 { label: 'Respuesta', name: 'Respuesta', type: 'radio-buttons', required: true, options: [
                     { value: 'ACEPTADA', label: 'Aceptada' },
                     { value: 'PENDIENTE', label: 'Pendiente' },
