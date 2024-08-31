@@ -20,13 +20,13 @@ export class AddFormModalComponent implements OnInit {
   form: FormGroup;
   hidePassword = true; // Control de visibilidad de la contraseña
   avatars: string[] = [
-    'assets/profile_uploads/profile1.png',
-    'assets/profile_uploads/profile2.png',
-    'assets/profile_uploads/profile3.png',
-    'assets/profile_uploads/profile4.png',
-    'assets/profile_uploads/profile5.png',
-    'assets/profile_uploads/profile6.png',
-    'assets/profile_uploads/profile7.png'
+    'assets/profile_uploads/profile1.webp',
+    'assets/profile_uploads/profile2.webp',
+    'assets/profile_uploads/profile3.webp',
+    'assets/profile_uploads/profile4.webp',
+    'assets/profile_uploads/profile5.webp',
+    'assets/profile_uploads/profile6.webp',
+    'assets/profile_uploads/profile7.webp'
   ];
   selectedAvatar: string | null = null; // Avatar seleccionado
   selectedFile: File | null = null; // Archivo seleccionado

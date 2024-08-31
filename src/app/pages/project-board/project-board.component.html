@@ -21,11 +21,11 @@
   
     <!-- Div con contenido en caso de no haber datos del proyecto -->
     <div *ngIf="isLoading">
-        <img src="../../assets/img/welcome/loading.png" alt="Cargando contenido" class="empty-img">
+        <img src="../../assets/img/welcome/loading.webp" alt="Cargando contenido" class="empty-img">
         <h3 class="empty-msg">Cargando...</h3>
     </div>
     <div *ngIf="!isLoading && !proyecto">
-        <img src="../../assets/img/welcome/warning.png" alt="Listado vacío" class="empty-img">
+        <img src="../../assets/img/welcome/warning.webp" alt="Listado vacío" class="empty-img">
         <h3 class="empty-msg">{{errorMessage}}</h3>
     </div>
     
@@ -70,7 +70,7 @@
 
                 <!-- En caso de no haber ninguna tarea -->
                 <div class="empty-board" *ngIf="tareas.length == 0">
-                    <img src="../../assets/img/welcome/projects.png" alt="Listado vacío" class="empty-img">
+                    <img src="../../assets/img/welcome/projects.webp" alt="Listado vacío" class="empty-img">
                     <p class="empty-msg">No tienes ninguna tarea creada en este proyecto.</p>
                     
                     <div class="floating-card add-new-card" *ngIf="canEdit" (click)="addTask()">

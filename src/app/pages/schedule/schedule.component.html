@@ -8,7 +8,7 @@
 
 <div class="home-container" *ngIf="userData">
     <div *ngIf="isLoading">
-        <img src="../../assets/img/welcome/loading.png" alt="Cargando contenido" class="empty-img">
+        <img src="../../assets/img/welcome/loading.webp" alt="Cargando contenido" class="empty-img">
         <h3 class="empty-msg">Cargando...</h3>
     </div>
     <div class="card-list-container" *ngIf="!isLoading">
@@ -17,7 +17,7 @@
             <h2>Tareas pendientes</h2>
             <div class="card-container">
                 <div *ngIf="tareas.length == 0">
-                    <img src="../../assets/img/welcome/file-system.png" alt="Animación que representa que el listado de tareas está vacío" class="empty-img">
+                    <img src="../../assets/img/welcome/file-system.webp" alt="Animación que representa que el listado de tareas está vacío" class="empty-img">
                     <p class="empty-msg">No tienes asignada ninguna tarea pendiente o en proceso próximamente.</p>
                 </div>
                 <div class="floating-card" *ngFor="let tarea of tareas" [routerLink]="['/my-projects', tarea.Idproyecto]"
@@ -65,7 +65,7 @@
             </div>
             <div class="card-container">
                 <div *ngIf="reuniones.length == 0">
-                    <img src="../../assets/img/welcome/calendar.png" alt="Animación que representa que el listado de reuniones está vacío" class="empty-img">
+                    <img src="../../assets/img/welcome/calendar.webp" alt="Animación que representa que el listado de reuniones está vacío" class="empty-img">
                     <p class="empty-msg">No tienes ninguna reunión convocada próximamente.</p>
                 </div>
                 <div class="floating-card" *ngFor="let reunion of reuniones"

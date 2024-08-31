@@ -162,13 +162,13 @@ export class AdminPanelComponent implements OnInit {
 
   getAvatarOptions() {
     return [
-      { value: 'profile1.png', label: 'Avatar 1' },
-      { value: 'profile2.png', label: 'Avatar 2' },
-      { value: 'profile3.png', label: 'Avatar 3' },
-      { value: 'profile4.png', label: 'Avatar 4' },
-      { value: 'profile5.png', label: 'Avatar 5' },
-      { value: 'profile6.png', label: 'Avatar 6' },
-      { value: 'profile7.png', label: 'Avatar 7' }
+      { value: 'profile1.webp', label: 'Avatar 1' },
+      { value: 'profile2.webp', label: 'Avatar 2' },
+      { value: 'profile3.webp', label: 'Avatar 3' },
+      { value: 'profile4.webp', label: 'Avatar 4' },
+      { value: 'profile5.webp', label: 'Avatar 5' },
+      { value: 'profile6.webp', label: 'Avatar 6' },
+      { value: 'profile7.webp', label: 'Avatar 7' }
     ];
   }
 

@@ -8,7 +8,7 @@
 
 <div class="home-container" *ngIf="userData">
   <div *ngIf="isLoading">
-    <img src="../../assets/img/welcome/loading.png" alt="Cargando contenido" class="empty-img">
+    <img src="../../assets/img/welcome/loading.webp" alt="Cargando contenido" class="empty-img">
     <h3 class="empty-msg">Cargando...</h3>
   </div>
   <div class="card-list-container" *ngIf="!isLoading">
@@ -17,7 +17,7 @@
       <h2 class="headerLink" routerLink="/my-projects">Proyectos recientes</h2>
       <div class="card-container">
         <div *ngIf="proyectos.length == 0">
-          <img src="../../assets/img/welcome/projects.png" alt="Listado vacío" class="empty-img">
+          <img src="../../assets/img/welcome/projects.webp" alt="Listado vacío" class="empty-img">
           <p class="empty-msg">No perteneces a ningún proyecto ahora mismo, puedes crear uno desde la pestaña de proyectos.</p>
         </div>
 
@@ -45,7 +45,7 @@
       <h2 class="headerLink" routerLink="/schedule">Tareas pendientes</h2>
       <div class="card-container">
         <div *ngIf="tareas.length == 0">
-          <img src="../../assets/img/welcome/file-system.png" alt="Listado vacío" class="empty-img">
+          <img src="../../assets/img/welcome/file-system.webp" alt="Listado vacío" class="empty-img">
           <p class="empty-msg">No tienes ninguna tarea pendiente asignada, puedes asignarte nuevas tareas desde el tablero del proyecto.</p>
         </div>
         <div class="floating-card" *ngFor="let tarea of tareas" [routerLink]="['/my-projects', tarea.Idproyecto]"
@@ -79,7 +79,7 @@
       <h2 class="headerLink" routerLink="/schedule">Reuniones próximas</h2>
       <div class="card-container">
         <div *ngIf="reuniones.length == 0">
-          <img src="../../assets/img/welcome/calendar.png" alt="Listado vacío" class="empty-img">
+          <img src="../../assets/img/welcome/calendar.webp" alt="Listado vacío" class="empty-img">
           <p class="empty-msg">No tienes ninguna reunión convocada próximamente.</p>
         </div>
         <div class="floating-card" *ngFor="let reunion of reuniones" routerLink="/schedule"
@@ -89,7 +89,7 @@
       </div>
       <h2 class="headerLink" routerLink="/chats">Mensajes nuevos</h2>
       <div class="card-container">
-        <img src="../../assets/img/welcome/mailbox.png" alt="Listado vacío" class="empty-img">
+        <img src="../../assets/img/welcome/mailbox.webp" alt="Listado vacío" class="empty-img">
         <div *ngIf="mensajesNoLeidos == 0">
           <p class="empty-msg">¡Estás al día! No tienes mensajes sin leer.</p>
         </div>

@@ -12,7 +12,7 @@
 
 <div class="home-container" *ngIf="userData && userData.Rol == 'admin'">
     <div *ngIf="isLoading">
-        <img src="../../assets/img/welcome/loading.png" alt="Cargando contenido" class="empty-img">
+        <img src="../../assets/img/welcome/loading.webp" alt="Cargando contenido" class="empty-img">
         <h3 class="empty-msg">Cargando...</h3>
     </div>
 
@@ -21,7 +21,7 @@
         <mat-tab label="Gestión de usuarios">
             <div class="tab-content"> 
                 <div *ngIf="usuarios.length === 0">
-                    <img src="../../assets/img/welcome/calendar.png" alt="Listado vacío" class="empty-img">
+                    <img src="../../assets/img/welcome/calendar.webp" alt="Listado vacío" class="empty-img">
                     <p class="empty-msg">No hay usuarios registrados en la aplicación.</p>
                 </div>
                 <table *ngIf="usuarios.length > 0">
@@ -55,7 +55,7 @@
         <mat-tab label="Gestión de proyectos">
             <div class="tab-content">
                 <div *ngIf="proyectos.length === 0">
-                    <img src="../../assets/img/welcome/calendar.png" alt="Listado vacío" class="empty-img">
+                    <img src="../../assets/img/welcome/calendar.webp" alt="Listado vacío" class="empty-img">
                     <p class="empty-msg">No hay proyectos registrados en la aplicación.</p>
                 </div>
                 <table *ngIf="proyectos.length > 0">
