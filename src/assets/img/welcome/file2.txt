@@ -1,3 +1,0 @@
-Proyecto Beta - Especificaciones técnicas
-
-Este documento cubre las especificaciones técnicas para el Proyecto Beta.
