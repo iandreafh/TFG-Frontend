@@ -47,11 +47,12 @@ export class DateService extends NativeDateAdapter {
     // Separar día, mes, año
     const [day, month, year] = datePart.split('/').map(Number);
     let date = null;
-    if(timePart) {
+    if (timePart) {
       // Crear un objeto DateTime si manda la hora
-      date = new Date(year, month - 1, day, ...timePart.split(':').map(Number));
+      const [hours, minutes, seconds] = timePart.split(':').map(Number);
+      date = new Date(Date.UTC(year, month - 1, day, hours || 0, minutes || 0, seconds || 0));
     } else {
-      date = new Date(year, month - 1, day); // Meses en JS son de 0 a 11
+      date = new Date(Date.UTC(year, month - 1, day)); // Crear la fecha en UTC, meses en JS son de 0 a 11
     }
   
     // Formatear la fecha a 'YYYY-MM-DD HH:mm:ss'

@@ -71,26 +71,25 @@ export class EditFormModalComponent implements OnInit {
       formValues = Object.keys(formValues).reduce((filteredValues: { [key: string]: any }, key: string) => {
         const field = this.data.fields.find(f => f.name === key);
         const originalValue = this.data.task?.[key] || this.data.meeting?.[key]; // Valor original de la tarea o reunión
-
+  
         if (field) {
-          // Si el campo es obligatorio o ha cambiado, se incluye en el envío
-          if (
-            field.required || 
-            formValues[key] !== originalValue || 
-            (originalValue !== undefined && originalValue !== '' && formValues[key] === '')
-          ) {
-            // Si es un campo de fecha, verifica si ha cambiado para actualizarlo
-            if (field.type === 'date') {
-              if (formValues[key] === '' || formValues[key] === null) {
-                if (originalValue) {
-                  filteredValues[key] = null; // Asigna null si estaba lleno y ahora está vacío
-                } 
-              } else if (new Date(formValues[key]).getTime() !== new Date(originalValue).getTime()) {
-                filteredValues[key] = this.dateService.format(new Date(formValues[key]), {});
+          if (field.type === 'date') {
+            if (formValues[key] === '' || formValues[key] === null) {
+              if (originalValue) {
+                // Si el campo tenía un valor y ahora está vacío, se elimina
+                filteredValues[key] = null;
               }
             } else {
-              filteredValues[key] = formValues[key];
+              // Si la fecha no ha cambiado, se envía el valor original, si ha cambiado, se formatea y envía
+              filteredValues[key] = formValues[key] !== undefined && formValues[key] !== null 
+                                    ? this.dateService.format(new Date(formValues[key]), {})
+                                    : originalValue;
             }
+          } else {
+            // Para campos que no son fechas, simplemente se incluye el valor del formulario
+            filteredValues[key] = formValues[key] !== undefined
+                                  ? formValues[key]
+                                  : originalValue;
           }
         }
         
