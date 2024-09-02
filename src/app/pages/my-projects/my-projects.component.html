@@ -30,7 +30,7 @@
             </div>
 
             <!-- Un usuario puede tener máximo 20 proyectos activos -->
-            <div *ngIf="proyectosActivos.length <= 5" class="floating-card add-new-card" (click)="addProject()">
+            <div *ngIf="proyectosActivos.length <= 20" class="floating-card add-new-card" (click)="addProject()">
               <mat-icon>add_circle</mat-icon>
             </div>
             <p *ngIf="proyectosActivos.length > 20">Se permite un máximo de 20 proyectos activos por usuario.</p>
