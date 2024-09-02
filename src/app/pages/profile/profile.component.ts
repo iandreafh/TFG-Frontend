@@ -29,8 +29,6 @@ export class ProfileComponent implements OnInit {
     'assets/profile_uploads/profile7.webp'
   ];
   selectedAvatar: string | null = null;
-
-  alertas: boolean = false;
   errorMessage: string = '';
   currentUserId: string = '';
   userData: any = {};
@@ -128,7 +126,7 @@ export class ProfileComponent implements OnInit {
     const formData = new FormData();
     formData.append('Nombre', this.userData.Nombre);
     formData.append('Email', this.userData.Email);
-    formData.append('Alertas', this.alertas.toString());
+    formData.append('Alertas', this.userData.Alertas);
     if (this.actualPassword) {
       formData.append('actualPassword', this.actualPassword);
     }

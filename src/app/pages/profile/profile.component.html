@@ -35,7 +35,7 @@
         </div>
         
         <div class="form-row single-group" [ngClass]="{'editable-input': isEditable}">
-            <mat-slide-toggle [(ngModel)]="alertas" name="alertas" [disabled]="!isEditable">
+            <mat-slide-toggle [(ngModel)]="userData.Alertas" name="alertas" [disabled]="!isEditable">
                 <span class="sliderText">Deseo recibir notificaciones de la aplicación por correo electrónico.</span>
             </mat-slide-toggle>
         </div>
