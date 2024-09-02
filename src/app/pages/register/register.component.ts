@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -14,7 +15,8 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {}
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   hide = true;
@@ -127,7 +129,7 @@ export class RegisterComponent implements OnInit {
       next: (response) => {
         this.errorMessage = '';
         // Una vez registrado, puede hacer login
-        window.location.href = "/login";
+        this.router.navigate(['/login']);
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);

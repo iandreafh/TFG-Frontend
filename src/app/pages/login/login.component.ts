@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         if (response.access_token) {
           // Redirige al usuario a la página de inicio recargando la página para actualizar los tokens
           this.errorMessage = '';
-          window.location.href = "/home";
+          this.router.navigate(['/home']);
         } else if (response.message) {
           // Muestra el mensaje de error devuelto por la API
           this.errorMessage = response.message;
