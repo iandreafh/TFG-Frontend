@@ -144,7 +144,7 @@
                                             'estado-blocked': tarea.Estado === 'Blocked',
                                             'estado-done': tarea.Estado === 'Done'
                                         }">{{ tarea.Estado }}</span>
-                                        <p class="task-date" *ngIf="tarea.Fechafin"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
+                                        <p class="task-date" *ngIf="tarea.Fechafin" [ngClass]="{'task-overdue': isTaskOverdue(tarea.Fechafin)}"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -178,7 +178,7 @@
                                             'estado-blocked': tarea.Estado === 'Blocked',
                                             'estado-done': tarea.Estado === 'Done'
                                         }">{{ tarea.Estado }}</span>
-                                        <p class="task-date" *ngIf="tarea.Fechafin"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
+                                        <p class="task-date" *ngIf="tarea.Fechafin" [ngClass]="{'task-overdue': isTaskOverdue(tarea.Fechafin)}"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -212,7 +212,7 @@
                                             'estado-blocked': tarea.Estado === 'Blocked',
                                             'estado-done': tarea.Estado === 'Done'
                                         }">{{ tarea.Estado }}</span>
-                                        <p class="task-date" *ngIf="tarea.Fechafin"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
+                                        <p class="task-date" *ngIf="tarea.Fechafin" [ngClass]="{'task-overdue': isTaskOverdue(tarea.Fechafin)}"><i class="fa-regular fa-calendar-check"></i> {{ tarea.Fechafin }}</p>
                                     </div>
                                 </div>
                             </div>
